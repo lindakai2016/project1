@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    font-weight: normal;
+    font-style: normal;
+    line-height: inherit;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    font-size: 14px;
+    color: #4a4a4a;
+}
+
+button, a {
+    cursor: pointer;
+    text-align: center;
+}
+
+p, ul, li, h1, h2, h3, h4, h5, h6 {
+    display: block;
+}

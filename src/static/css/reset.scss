@@ -1,0 +1,74 @@
+/*--iview Datepicker--*/
+.ivu-input {
+    height: 38px;
+    line-height: 38px;
+    padding: 0 12px;
+    width: 100%;
+    min-width: 200px;
+    font-size: 12px;
+    border: 0;
+    box-shadow: none;
+}
+
+i.ivu-icon-ios-calendar-outline {
+    color: #4780F7;
+}
+
+i.ivu-icon-ios-close-circle {
+    color: #B8BCC1;
+}
+
+.ivu-input:hover, .ivu-input:focus {
+    border: 0;
+}
+
+.ivu-date-picker-focused input {
+    box-shadow: none;
+}
+
+i.ivu-icon {
+    line-height: 38px;
+}
+
+.ivu-input-suffix {
+    width: 36px;
+}
+
+.ivu-input:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.ivu-icon-ios-close-circle {
+    cursor: pointer;
+}
+
+.ivu-picker-panel-body {
+    font-size: 12px;
+    .ivu-icon {
+        line-height: initial;
+    }
+    .ivu-picker-panel-icon-btn {
+        line-height: 32px;
+        margin-top: 0;
+    }
+}
+
+// 35px高度定制
+.ivu-datepick-h35 {
+    .ivu-input {
+        height: 35px;
+        line-height: 33px;
+        font-size: 14px;
+        color: #000;
+    }
+    i.ivu-icon {
+        line-height: 35px;
+    }
+}
+
+/* --iview switch-- */
+.ivu-switch {
+    outline: none !important;
+    box-shadow: none !important;
+}

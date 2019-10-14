@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="179px" height="127px" viewBox="0 0 179 127" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>home_img_empty</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="57.377307%" y1="132.169859%" x2="57.377307%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#DDF3FD" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#BED0FA" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-19.2%" y="-100.0%" width="138.4%" height="300.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="4.76033058" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="96.9917355" height="61.8842975" rx="5.95041322"></rect>
+        <linearGradient x1="49.3386387%" y1="7.44538972%" x2="49.3386387%" y2="86.4423077%" id="linearGradient-5">
+            <stop stop-color="#E6F2FE" offset="0%"></stop>
+            <stop stop-color="#F0F5FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.3386387%" y1="7.44538972%" x2="49.3386387%" y2="86.4423077%" id="linearGradient-6">
+            <stop stop-color="#E6F2FE" offset="0%"></stop>
+            <stop stop-color="#F0F5FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图规范" transform="translate(-827.000000, -53.000000)">
+            <g id="home_img_empty" transform="translate(827.000000, 54.000000)">
+                <g id="编组-4">
+                    <g id="编组-57">
+                        <ellipse id="椭圆形" fill="url(#linearGradient-1)" opacity="0.200000003" cx="89.4" cy="107.4" rx="89.4" ry="18.6"></ellipse>
+                        <g id="编组-56" transform="translate(43.200000, 0.000000)">
+                            <rect id="矩形备份-28" stroke="#D3D5DF" stroke-width="1.78512397" fill="#FFFFFF" x="0" y="12.4958678" width="96.9917355" height="85.6859504" rx="5.95041322"></rect>
+                            <rect id="矩形" fill-opacity="0.245875219" fill="#4780F7" filter="url(#filter-2)" x="8.33057851" y="22.0165289" width="74.3801653" height="14.2809917"></rect>
+                            <rect id="矩形" stroke-opacity="0.175999781" stroke="#979797" stroke-width="1.8" fill="#FFFFFF" x="11.3057851" y="0" width="74.3801653" height="37.4876033"></rect>
+                            <g id="矩形备份-28" transform="translate(0.000000, 36.297521)">
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="蒙版" fill-opacity="0.0901715472" fill="#4780F7" xlink:href="#path-3"></use>
+                                <rect fill-opacity="0.0901715472" fill="#4780F7" mask="url(#mask-4)" x="5.95041322" y="0" width="96.9917355" height="61.8842975" rx="5.95041322"></rect>
+                            </g>
+                            <rect id="矩形" fill="#FFFFFF" x="12.4958678" y="46.4132231" width="26.1818182" height="5.95041322" rx="2.97520661"></rect>
+                            <rect id="矩形备份-29" fill="#FFFFFF" x="12.4958678" y="57.1239669" width="26.1818182" height="5.95041322" rx="2.97520661"></rect>
+                            <g id="编组-55" transform="translate(81.869618, 72.755935) rotate(-10.000000) translate(-81.869618, -72.755935) translate(36.869618, 27.755935)">
+                                <g id="编组-54" transform="translate(44.614439, 44.967777) rotate(-45.000000) translate(-44.614439, -44.967777) translate(22.114439, 4.467777)">
+                                    <circle id="椭圆形" stroke="#D3D5DF" stroke-width="0.975477578" fill="#FFFFFF" cx="22.4359843" cy="22.4359843" r="22.4359843"></circle>
+                                    <circle id="椭圆形" stroke="#D3D5DF" stroke-width="0.975477578" cx="22.4359843" cy="22.4359843" r="18.0463352"></circle>
+                                    <path d="M21.9482455,10.2425146 C17.484447,10.2425146 13.6142473,12.8182144 11.7057309,16.5831188" id="路径" stroke="#AAB0C8" stroke-width="2.47976977" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <rect id="矩形" fill="#D8D8D8" x="20.9727679" y="44.8719686" width="2.92643273" height="27.3133722"></rect>
+                                    <rect id="矩形" fill="#D3D5DF" x="19.0218128" y="56.0899607" width="6.82834304" height="24.3869394"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="编组-52" transform="translate(1.200000, 51.600000)">
+                        <g id="编组-51">
+                            <rect id="矩形" fill="#DEE7F2" x="7.14763636" y="31.104" width="3.57381818" height="33.696" rx="1.78690909"></rect>
+                            <ellipse id="椭圆形" fill="url(#linearGradient-5)" cx="9.38127273" cy="28.08" rx="9.38127273" ry="28.08"></ellipse>
+                        </g>
+                    </g>
+                    <g id="编组-52" transform="translate(172.800000, 64.800000)">
+                        <g id="编组-51">
+                            <rect id="矩形" fill="#DEE7F2" x="2.304" y="10.368" width="1.152" height="11.232" rx="0.576"></rect>
+                            <ellipse id="椭圆形" fill="url(#linearGradient-6)" cx="3.024" cy="9.36" rx="3.024" ry="9.36"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

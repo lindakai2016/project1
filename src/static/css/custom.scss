@@ -1,0 +1,58 @@
+/* --通用按钮-- */
+.carBtn {
+    display: inline-block;
+    border-radius: 4px;
+    width: 60px;
+    height: 30px;
+    line-height: 28px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    &.blue {
+        background:#4780F7;
+        color: #fff;
+        border: 1px solid #4780F7;
+    }
+    &.white {
+        background:#fff;
+        color: #4A4A4A;
+        border: 1px solid #F5F5F5;
+    }
+    &.gray {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+    &:hover {
+        opacity: 0.8;
+    }
+    &:active {
+        opacity: 0.9;
+    }
+}
+
+.iconfont {
+    &.link {
+        cursor: pointer;
+        &:hover {
+            font-weight: bold;
+        }
+        &.gray {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    }
+}
+
+/* --垂直居中-- */
+.row {
+    .vmid {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+/* --文本溢出-- */
+.elli {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
