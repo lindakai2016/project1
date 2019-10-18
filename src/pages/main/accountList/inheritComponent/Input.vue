@@ -66,7 +66,7 @@ export default {
         }
     }
     .iconfont {
-        color: #888;
+        color: #B8BCC1;
         margin-right: 11px;
         font-size: 14px;
     }
