@@ -1,12 +1,30 @@
 <template>
     <div id="app">
-        <router-view/>
+        <router-view v-if="showRouter"/>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'App'
+    name: 'App',
+    provide () {
+        return {
+            reload: this.reload
+        }
+    },
+    data() {
+        return {
+            showRouter: true,
+        }
+    },
+    methods: {
+        reload() {
+            this.showRouter = false;
+            this.$nextTick(() => {
+                this.showRouter = true;
+            })
+        }
+    }
 }
 </script>
 

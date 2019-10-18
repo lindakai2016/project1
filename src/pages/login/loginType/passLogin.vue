@@ -5,18 +5,18 @@
             <i class="iconfont icon-login_icon_error1"></i>{{formErr}}
         </div>
         <div class="phoneInput">
-            <inputGr class="phone" :class="{err: phoneErr}" type="text" placeholder="请输入手机号码" v-model="phone" clear="1" @blur="phoneBlur"></inputGr>
+            <inputGr class="phone" :class="{err: phoneErr}" placeholder="请输入手机号码" v-model="phone" clear="1" @blur="checkPhone(1)"></inputGr>
         </div>
         <div class="passInput">
-            <inputGr class="pass" :class="{err: passErr}" type="password" placeholder="请输入密码" v-model="password" @blur="passBlur"></inputGr>
+            <passInput class="pass" :class="{err: passErr}" placeholder="请输入密码" v-model="password" @blur="checkPass(1)"></passInput>
         </div>
         <p class="toForget">
             <span class="link" @click="openFgDlg">忘记密码</span>
         </p>
-        <button class="carBtn blue loginBtn" :class="{gray: !canLogin}" @click="passLogin">登录</button>
+        <button class="carBtn blue loginBtn" :class="{gray: !canLogin}" @click="passLoginX">登录</button>
         <!--忘记密码-->
         <basePopup v-model="showFgDlg">
-            <forgetPass @exit="closeFgDlg"></forgetPass>
+            <forgetPass @exit="closeFgDlg" forget="1"></forgetPass>
         </basePopup>
     </div>
 </template>
@@ -25,6 +25,7 @@
 import forgetPass from "../components/modifyPass";
 import basePopup from "@/commonComponents/basePopup";
 import inputGr from "../inheritComponent/Input";
+import passInput from "../inheritComponent/passInput";
 import _ from "lodash";
 
 export default {
@@ -32,6 +33,12 @@ export default {
         basePopup,
         forgetPass,
         inputGr,
+        passInput,
+    },
+    provide () {
+        return {
+            passLogin: this.passLogin,
+        }
     },
     data () {
         return {
@@ -52,36 +59,51 @@ export default {
             return this.phone && this.phone.validPhone() && this.password && this.password.validPass();
         }
     },
+    watch: {
+        phone() {
+            this.checkPhone();
+            this.phone && this.phone.length >= 11 && this.checkPhone(1);
+        },
+        password() {
+            this.checkPass();
+            this.password && this.password.length >= 6 && this.checkPass(1);
+        }
+    },
     methods: {
-        phoneBlur() {
+        checkPhone(b) {
             if(!this.phone) {
                 return;
             }
             if(!this.phone.validPhone()) {
-                this.phoneErr = "手机号码不正确";
+                b && (this.phoneErr = "手机号码不正确");
                 return;
             }
             this.phoneErr = "";
         },
-        passBlur() {
+        checkPass(b) {
             if(!this.password) {
                 return;
             }
             if(!this.password.validPass()) {
-                this.passErr = "密码由数字、英文和下划线组成，长度6-20";
+                b && (this.passErr = "密码由数字、英文和下划线组成，长度6-20");
                 return;
             }
             this.passErr = "";
         },
-        // 密码登录
-        passLogin: _.debounce(function() {
+        passLoginX: _.debounce(function() {
             if(!this.canLogin) {
                 return;
             }
             let {phone, password} = this;
-            this.$api["passLogin"]({
+            this.passLogin({
                 account:    phone,
                 password:   btoa(password),
+            });
+        }, 300),
+        // 密码登录
+        passLogin(params) {
+            this.$api["passLogin"]({
+                ...params
             }).then(res => {
                 if(res.code != 100200) {
                     this.$message.warning(res.message || "请求失败");
@@ -93,7 +115,7 @@ export default {
 
                 this.$router.push("/home");
             }).catch(err => err);
-        }, 300),
+        },
         openFgDlg () {
             this.showFgDlg = true;
         },

@@ -5,7 +5,7 @@
             <i class="iconfont icon-icon_close_n link closeIc" @click="onCancel"></i>
             <div class="body">
                 <i class="iconfont icon-icon_tips_audit bdIc"></i>
-                {{msg}}
+                <span class="msg">{{msg}}</span>
             </div>
             <div class="bottom">
                 <button class="carBtn white dlgBtn" @click="onCancel">{{cancelText}}</button>
@@ -98,12 +98,17 @@ export default {
         min-height: 50px;
         font-size: 14px;
         color: #4A4A4A;
-        padding: 10px 0 13px 0;
+        padding: 13px 0;
         line-height: 16px;
+        position: relative;
         .bdIc {
             font-size: 16px;
             color: #EDAC4A;
-            margin-right: 4px;
+            position: absolute;
+        }
+        .msg {
+            padding-left: 25px;
+            display: inline-block;
         }
     }
     .bottom {

@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import beforeEach from './beforeEach';
 
 import loginRouter from '../pages/login/router.js';
-import homeRouter from '@/pages/home/router.js';
+import mainRouter from '@/pages/main/router.js';
 
 Vue.use(Router);
 
@@ -12,7 +12,7 @@ let router = new Router({
     base: process.env.BASE_URL,
     routes: [
         ...loginRouter,
-        ...homeRouter,
+        ...mainRouter,
         {
             path: '*',
             redirect: '/home'

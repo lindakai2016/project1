@@ -116,12 +116,10 @@ export default {
 .pageNavi {  
     color: #2C3642;
     font-size: 14px;
-    height: 28px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 27px;
-    margin-bottom: 130px;
+    padding: 27px 0 120px 0;
     user-select: none;
     .total {
         margin-right: 12px;

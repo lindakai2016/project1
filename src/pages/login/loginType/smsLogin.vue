@@ -6,10 +6,10 @@
             {{phoneErr}}
         </div>
         <div class="phoneInput">
-            <inputGr class="phone" :class="{err: phoneErr}" placeholder="请输入手机号码" v-model="phone" clear="1" @blur="phoneBlur"></inputGr>
+            <inputGr class="phone" :class="{err: phoneErr}" placeholder="请输入手机号码" v-model="phone" @blur="checkPhone(1)" clear="1"></inputGr>
         </div>
         <div class="codeInput">
-            <inputGr class="inputGr" type="text" placeholder="请输入验证码" v-model="code"></inputGr>
+            <inputGr class="inputGr" placeholder="请输入验证码" v-model="code"></inputGr>
             <a class="carBtn white codeBtn" :class="{gray: !canSendCode}" @click="sendCode">{{codeCountStr}}</a>
         </div>
         <button class="carBtn blue loginBtn" :class="{gray: !canLogin}" @click="smsLogin">登录</button>
@@ -45,6 +45,12 @@ export default {
             return this.phone && this.phone.validPhone() && this.code;
         }
     },
+    watch: {
+        phone() {
+            this.checkPhone();
+            this.phone && this.phone.length >= 11 && this.checkPhone(1);
+        }
+    },
     methods: {
         startCodeCount(n) {
             if(n < 0) {
@@ -56,12 +62,12 @@ export default {
                 this.startCodeCount(n - 1);
             }, 1000);
         },
-        phoneBlur() {
+        checkPhone(b) {
             if(!this.phone) {
                 return;
             }
             if(!this.phone.validPhone()) {
-                this.phoneErr = "手机号码不正确";
+                b && (this.phoneErr = "手机号码不正确");
                 return;
             }
             this.phoneErr = "";
@@ -80,7 +86,7 @@ export default {
                     this.$message.warning(res.message || "请求失败");
                     return;
                 }
-                this.startCodeCount(5 * 60);
+                this.startCodeCount(60);
             }).catch(err => err);
         }, 300),
         // 手机号登录

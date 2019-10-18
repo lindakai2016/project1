@@ -1,0 +1,304 @@
+.orders {
+    .col_dd {
+        width: 25%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding-left: 40px;
+    }
+    .col_ck {
+        width: 20%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding: 0 20px;
+    }
+    .col_sj {
+        width: 25%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding: 0 20px;
+    }
+    .col_zt {
+        width: 15%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    .col_cz {
+        width: 15%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    .odHead {
+        background: rgba(71,128,247,0.11);
+        height: 40px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        .td {
+            font-size: 15px;
+            font-weight: 600;
+            color: #4A4A4A;
+        }
+        .col_dd {
+            padding-left: 100px;
+        }
+        .col_ck {
+            padding-left: 70px;
+        }
+        .col_sj {
+            padding-left: 70px;
+        }
+        .col_zt {
+            text-align: center;
+        }
+        .col_cz {
+            text-align: center;
+        }
+    }
+    .odItem {
+        background: #fff;
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.04);
+        border-radius: 3px;
+        margin-top: 17px;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        min-height: 120px;
+        /* --订单信息-- */
+        .col_dd {
+            color: #000;
+            .iconfont {
+                color: #C9C9C9;
+                font-size: 14px;
+                margin: 0 3px;
+            }
+            .l1 {
+                display: flex;
+                align-items: center;
+                height: 20px;
+                .time {
+                    font-size: 15px;
+                    font-weight: 400;
+                    margin-left: 7px;
+                    white-space: nowrap;
+                }
+                .type {
+                    display: inline-block;
+                    width: 80px;
+                    height: 24px;
+                    background: rgba(71,128,247,0.1);
+                    border-radius: 16px;
+                    color: #4780F7;
+                    font-size: 12px;
+                    line-height: 24px;
+                    text-align: center;
+                    margin-left: 5px;
+                    transform: scale(0.8);
+                }
+            }
+            .l2 {
+                display: flex;
+                align-items: center;
+                height: 20px;
+                margin-top: 8px;
+                &.rowAddr {
+                    margin-top: 14px;
+                }
+                &.dash {
+                    position: relative;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        border-left: 1px dashed #c9c9c9;
+                        height: 20px;
+                        top: -8px;
+                        left: 10px;
+                    }
+                }
+                .posIc {
+                    display: inline-block;
+                    background: #c9c9c9;
+                    border-radius: 100%;
+                    color: #fff;
+                    font-size: 12px;
+                    transform: scale(0.7);
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    line-height: 20px;
+                    flex-shrink: 0;
+                }
+                .pos {
+                    font-size: 13px;
+                    font-weight: 400;
+                    margin-left: 7px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+        }
+        /* --乘客信息-- */
+        .col_ck {
+            font-weight: 400;
+            color: #000;
+            .iconfont {
+                color: #C9C9C9;
+                font-size: 14px;
+                margin-right: 8px;
+            }
+            .l1 {
+                font-size: 12px;
+                .name {
+                    font-size: 14px;
+                }
+                .phone {
+                    font-size: 13px;
+                    margin-left: 8px;
+                }
+            }
+            .l2 {
+                font-size: 13px;
+                margin-top: 14px;
+            }
+        }
+        /* --司机信息-- */
+        .col_sj {
+            font-weight: 400;
+            .iconfont {
+                font-size: 14px;
+                color: #C9C9C9;
+                font-size: 14px;
+                margin-right: 8px;
+            }
+            .emptySj {
+                background: #979797;
+                height: 1px;
+                display: inline-block;
+                width: 25px;
+                margin-left: 65px;
+            }
+            .l1 {
+                .name {
+                    font-size: 14px;
+                    color: #000;
+                }
+                .phone {
+                    color: #4A4A4A;
+                    font-size: 13px;
+                    margin-left: 8px;
+                }
+            }
+            .l2 {
+                font-size: 13px;
+                color: #000;
+                font-weight: 400;
+                margin-top: 12px;
+                display: flex;
+                align-items: center;
+                height: 20px;
+                white-space: nowrap;
+                * {
+                    flex-shrink: 0;
+                }
+                .carName {
+                    margin-right: 3px;
+                }
+                .carNum {
+                    position: relative;
+                    display: inline-block;
+                    font-size: 12px;
+                    color: #fff;
+                    background: #7691C9;
+                    transform: scale(0.8);
+                    padding: 2px 8px;
+                    &:after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        left: -2px;
+                        right: -2px;
+                        top: -2px;
+                        bottom: -2px;
+                        border: 1px solid #7691C9;
+                        border-radius: 1px;
+                    }
+                }
+                .dot {
+                    display: inline-block;
+                    width: 4px;
+                    height: 4px;
+                    background: #d8d8d8;
+                    border-radius: 100%;
+                }
+                .carColor {
+                    margin: 0 6px;
+                }
+                .carSeat {
+                    margin: 0 6px;
+                }
+            }
+        }
+        /* --状态信息-- */
+        .col_zt {
+            .status {
+                width: 90px;
+                height: 27px;
+                line-height: 27px;
+                text-align: center;
+                border-radius: 13px;
+                font-size: 12px;
+                color: #4ACBD1;
+                background: rgba(123,255,200,0.1);
+                margin: 0 auto;
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 100%;
+                    background: #4ACBD1;
+                    margin-right: 8px;
+                }
+                &.blue {
+                    color: #4780F7;
+                    background: rgba(71,128,247,0.1);
+                    &::before {
+                        background: #4780F7;
+                    }
+                }
+                &.green {
+                    color: #EDAC4A;
+                    background: rgba(237,172,74,0.1);
+                    &::before {
+                        background: #EDAC4A;
+                    }
+                }
+                &.red {
+                    color: #F85C5C;
+                    background: rgba(248,92,92,0.1);
+                    &::before {
+                        background: #F85C5C;
+                    }
+                }
+                &.gray {
+                    color: #4ACBD1;
+                    background: rgba(123,255,200,0.1);
+                    &::before {
+                        background: #4ACBD1;
+                    }
+                }
+
+            }
+        }
+        /* --操作-- */
+        .col_cz {
+            text-align: center;
+            .moreDrop {
+                .gray {
+                    color: #b2b2b2;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}

@@ -8,20 +8,20 @@
 export default {
     data() {
         return {
-            visible: 0,
-            timer: null,
+            count: 0,
+        }
+    },
+    computed: {
+        visible() {
+            return this.count > 0;
         }
     },
     methods: {
         open() {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.visible = true;
-            }, 500);
+            this.count ++;
         },
         close() {
-            clearTimeout(this.timer);
-            this.visible = false;
+            this.count --;
         }
     }
 }
@@ -36,7 +36,7 @@ export default {
     top: 0;
     line-height: 100vh;
     text-align: center;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0);
     display: none;
     z-index: 1000;
     &.visible {

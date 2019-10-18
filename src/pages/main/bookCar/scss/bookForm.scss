@@ -1,0 +1,126 @@
+.bookForm {
+    width: 580px;
+    .errInfo {
+        margin: 10px 0 0 0;
+        padding-left: 110px;
+        color: #F85C5C;
+        font-size: 12px;
+        line-height: 14px;
+        display: flex;
+        align-items: center;
+        visibility: hidden;
+        &.show {
+            visibility: visible;
+        }
+        .iconfont {
+            margin-right: 7px;
+            font-size: 14px;
+        }
+    }
+    .fi {
+        margin-top: 20px;
+        display: inline-flex;
+        .lb {
+            font-size: 13px;
+            color: #888;
+            width: 110px;
+            line-height: 35px;
+            &.needed::before {
+                content: "*";
+                color: #F85C5C;
+            }
+        }
+        .rval {
+            display: inline-flex;
+            &.err {
+                border-color: #F85C5C;
+            }
+        }
+        .ivu-datepick-h35 {
+            border:1px solid #e5e5e5;
+            border-radius: 3px;
+            overflow: hidden;
+            width: 216px;
+            display: inline-block;
+        }
+        // 起飞日期
+        .v_takeOffDate {
+           
+        }
+        // 航班号
+        .v_airport {
+            width: 410px;
+        }
+        //航站楼
+        .v_teminal {
+            
+        }
+        // 火车站
+        .v_train {
+            
+        }
+        //出发地
+        .v_sPos {
+            
+        }
+        //目的地
+        .v_ePos {
+            
+        }
+        // 用车时间-datepicker
+        .v_useDate {
+            width: 150px;
+        }
+        .v_useTime {
+            width: 100px;
+            margin-left: 12px;
+        }
+        // 用车时间-按航班
+        .v_useTimeSel {
+            
+        }
+        // 包车天数
+        .v_bcts {
+            width: 410px;
+        }
+        // 包车行程说明
+        .v_xcsm {
+            width: 410px;
+            height: 100px;
+        }
+        // 乘车人数
+        .v_personNum {
+            width: 410px;
+        }
+        // 联系人手机号
+        .v_userPhone {
+            width: 410px;
+        }
+        // 联系人姓名
+        .v_userName {
+            width: 410px;
+        }
+        // 用车要求
+        .v_odDesc {
+            width: 410px;
+            height: 100px;
+        }
+    }
+    .submitBtn {
+        width: 333px;
+        height: 40px;
+        line-height: 38px;
+        margin: 33px 0 0 110px;
+        &.gray {
+            pointer-events: none;
+        }
+    }
+    .smTip {
+        font-size: 12px;
+        line-height: 14px;
+        margin: 8px 0 0 110px;
+        width: 333px;
+        text-align: center;
+        color: #B2B3B4;
+    }
+}

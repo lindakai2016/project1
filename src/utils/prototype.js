@@ -41,7 +41,11 @@ Array.range = function(s, d) {
 }
 
 Storage.prototype.getItemObj = function(key) {
-    return JSON.parse(this.getItem(key));
+    try {
+        return JSON.parse(this.getItem(key)) || {};
+    }catch(err) {
+        return {};
+    }
 }
 
 Storage.prototype.setItemObj = function(key, val) {

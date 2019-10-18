@@ -24,6 +24,11 @@ export default {
     components: {
         baseDrop,
     },
+    provide() {
+        return {
+            "selectGr": this
+        }
+    },
     data() {
         return {
             options: [],
@@ -35,9 +40,12 @@ export default {
             return activeOption && activeOption.label;
         }
     },
-    provide() {
-        return {
-            "selectGr": this
+    value: {
+        immediate: true,
+        handler(val) {
+            this.options.map(e => {
+                e.value == val && (e.active = 1);
+            });
         }
     },
     methods: {

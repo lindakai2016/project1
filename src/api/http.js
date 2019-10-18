@@ -32,8 +32,9 @@ export default [
     { name: "delHisAddr", url: "/history/address/del", method: "post", auth: true},
 
     { name: "createOrder", url: "/order/create", method: "post", loading: true, auth: true},
+    { name: "updateOrder", url: "/order/update", method: "post", loading: true, auth: true},
 
-    { name: "lnglatFromFly", url: "/dep/info", method: "post", loading: true, auth: true}, //查询站点经纬度
+    { name: "lnglatFromFly", url: "/dep/info", method: "post", auth: true}, //查询站点经纬度
 ]
 
 

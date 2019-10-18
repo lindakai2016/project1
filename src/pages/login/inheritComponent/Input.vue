@@ -1,6 +1,6 @@
 <template>
     <div class="inputGr" :class="{focus: inFocus}">
-        <input class="input" :type="type" :placeholder="placeholder" :value="value" @input="input" @focus="focus" @blur="blur" autocomplete="off">
+        <input class="input" :placeholder="placeholder" :type="type" :value="value" @input="input" @focus="focus" @blur="blur" autocomplete="off">
         <i class="iconfont icon-login_icon_del link" @click="clickClear" v-show="showClear"></i>
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     computed: {
         showClear() {
             return this.clear && !!this.value;
-        }
+        },
     },
     methods: {
         blur() {

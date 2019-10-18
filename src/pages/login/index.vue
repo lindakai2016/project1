@@ -65,7 +65,9 @@ export default {
                     this.$message.warning(res.message || "请求失败");
                     return;
                 }
-                this.company = res.data || {};
+                let company = res.data || {};
+                localStorage.setItemObj("companyInfo", company);
+                this.company = company;
             }).catch(err => {
                 this.pgInit = 1;
                 console.log(err);
