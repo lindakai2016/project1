@@ -119,15 +119,15 @@ export default {
             n < 2 && (n = 2);
             let i = (this.odItem.orderFlow.filter(e => e.current)[0] || {}).idx;
             return i * 100 / (n - 1) + "%";
-        }
+        },
     },
     methods: {
         odFlowSt({viewType, current}) {
             return {
-                cur:    current,
+                cancel: viewType == 2,
+                cur:    current && viewType != 2,
                 done:   !current && viewType == 1,
                 undone: !current && viewType == 3,
-                cancel: !current && viewType == 2,
             }
         },
         exit() {
