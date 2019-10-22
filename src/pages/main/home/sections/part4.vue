@@ -53,12 +53,6 @@ export default {
                     axisLabel: {
                         color: "#888",
                         margin: 0,
-                        formatter: value => {
-                            return value / 1000 + "K";
-                        }
-                    },
-                    max: value => {
-                        return value.max || 500;
                     },
                     name: "订单量",
                     nameGap: 30,
@@ -79,12 +73,6 @@ export default {
                     axisLabel: {
                         color: "#888",
                         margin: 0,
-                        formatter: value => {
-                            return value / 1000 + "K";
-                        }
-                    },
-                    max: value => {
-                        return value.max || 5000;
                     },
                     name: "订车金额",
                     nameGap: 30,

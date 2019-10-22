@@ -51,6 +51,10 @@ export default {
             this.phone && this.phone.length >= 11 && this.checkPhone(1);
         }
     },
+    destoryed() {
+        clearTimeout(this.codeCountTimer);
+        this.codeCountTimer = null;
+    },
     methods: {
         startCodeCount(n) {
             if(n < 0) {

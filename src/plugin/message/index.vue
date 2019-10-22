@@ -32,6 +32,12 @@ export default {
             return this.type == 3;
         },
     },
+    destoryed() {
+        clearTimeout(this.fadeInTimer);
+        clearTimeout(this.fadeOutTimer);
+        this.fadeInTimer = null;
+        this.fadeOutTimer = null;
+    },
     methods: {
         fadeIn(type, msg) {
             if(this.fadeInTimer || this.fadeOutTimer) {

@@ -1,7 +1,7 @@
 <template>
     <div class="odSelect" v-clickout="close">
         <div class="head" :class="{check: hasCheck}" @click="toggle">
-            <span class="sdv">筛选</span>
+            <span class="sdv">{{odSelTitle}}</span>
             <i class="iconfont icon-home_icon_s sdi" :class="{down: drop}"></i>
         </div>
         <div class="odDrop" :class="{drop: drop}">
@@ -62,6 +62,17 @@ export default {
     computed: {
         hasCheck() {
             return this.odStatus.some(e => e.check) || this.odType.some(e => e.check) || this.odSett.some(e => e.check);
+        },
+        odSelTitle() {
+            let s = "";
+            let s1 = this.odStatus.filter(e => e.check).map(e => e.name).join("、");
+            s1 && (s += s1 + "，");
+            let s2 = this.odType.filter(e => e.check).map(e => e.name).join("、");
+            s2 && (s += s2 + "，");
+            let s3 = this.odSett.filter(e => e.check).map(e => e.name).join("、");
+            s3 && (s += s3 + "，");
+            s = s.replace(/，$/g, "");
+            return this.hasCheck ? s : "筛选";
         }
     },
     watch: {
@@ -128,6 +139,11 @@ export default {
         }
         .sdv {
             font-size: 12px;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
         }
         .sdi {
             float: right;

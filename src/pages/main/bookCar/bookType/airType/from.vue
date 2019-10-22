@@ -145,7 +145,7 @@ export default {
             if(this.byFly) {
                 return this.flyItemErr || this.poiItemErr || this.useCarTimeErr || this.rideNumErr || this.userPhoneErr || "";
             }
-            if(this.byHb) {
+            if(this.byDep) {
                 return this.depItemErr || this.poiItemErr || this.jcDateErr || this.jcTimeErr || this.rideNumErr || this.userPhoneErr || "";
             }
             return "";
@@ -349,11 +349,12 @@ export default {
         createOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, svTime, sPos, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, svTime, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
                 svTime = moment(this.flyItem.arrPlanTime).add(this.useCarTime, "minutes").format("YYYY-MM-DD HH:mm:ss");
                 sPos = this.flyItem.arrName;
+                sTerm = this.flyItem.arrTerm;
 
                 flyNo = this.flyItem.flightNo;
                 flyInfo = JSON.stringify(this.flyItem);
@@ -368,6 +369,7 @@ export default {
                 svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
                 svTime += this.jcTime && (" " + this.jcTime + ":00");
                 sPos = this.depItem.depotName;
+                sTerm = this.depItem.depotTermCode;
 
                 sLng = this.depItem.longitude;
                 sLat = this.depItem.latitude;
@@ -388,6 +390,7 @@ export default {
                 service_type:       1,
                 start_position:     sPos,
                 start_address:      sAddr,
+                arr_teml_code:      sTerm,
                 end_position:       ePos,
                 type:               2,
                 remark:             remark,
@@ -408,11 +411,12 @@ export default {
         updateOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, svTime, sPos, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, svTime, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
                 svTime = moment(this.flyItem.arrPlanTime).add(this.useCarTime, "minutes").format("YYYY-MM-DD HH:mm:ss");
-                sPos = this.flyItem.arrTerm;
+                sPos = this.flyItem.arrName;
+                sTerm = this.flyItem.arrTerm;
 
                 flyNo = this.flyItem.flightNo;
                 flyInfo = JSON.stringify(this.flyItem);
@@ -427,6 +431,7 @@ export default {
                 svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
                 svTime += this.jcTime && (" " + this.jcTime + ":00");
                 sPos = this.depItem.depotName;
+                sTerm = this.depItem.depotTermCode;
 
                 sLng = this.depItem.longitude;
                 sLat = this.depItem.latitude;
@@ -449,6 +454,7 @@ export default {
                 service_type:       1,
                 start_position:     sPos,
                 start_address:      sAddr,
+                arr_teml_code:      sTerm,
                 end_position:       ePos,
                 type:               2,
                 remark:             remark,

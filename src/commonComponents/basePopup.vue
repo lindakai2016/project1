@@ -32,6 +32,10 @@ export default {
             }
         }
     },
+    destoryed() {
+        clearTimeout(this.fadeOutTimer);
+        this.fadeOutTimer = null;
+    },
     methods: {
         fadeIn() {
             this.fade = true;

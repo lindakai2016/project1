@@ -8,7 +8,7 @@
             <label class="lb needed">出发地</label>
             <poiInput class="rval v_sPos" :err="poiItemErr" :cityCode="sCtCode" :item="poiItem" @change="poiChange" @blur="poiItemBlur"></poiInput>
         </p>
-         <p class="fi">
+        <p class="fi">
             <label class="lb needed">用车时间</label>
             <DatePicker 
                 class="rval v_useDate ivu-datepick-h35" 

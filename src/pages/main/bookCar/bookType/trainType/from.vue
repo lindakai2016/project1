@@ -251,8 +251,9 @@ export default {
             let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
             svTime += this.jcTime && (" " + this.jcTime + ":00");
             let sPos = this.depItem.depotName;
+            let sTerm = this.depItem.depotTermCode;
             let ePos = this.poiItem.name;
-
+            
             let sLng = this.depItem.longitude;
             let sLat = this.depItem.latitude;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
@@ -270,6 +271,7 @@ export default {
                 service_type:       3,
                 start_position:     sPos,
                 start_address:      sAddr,
+                arr_teml_code:      sTerm,
                 end_position:       ePos,
                 type:               2,
                 remark:             remark,
@@ -286,6 +288,7 @@ export default {
             let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
             svTime += this.jcTime && (" " + this.jcTime + ":00");
             let sPos = this.depItem.depotName;
+            let sTerm = this.depItem.depotTermCode;
             let ePos = this.poiItem.name;
 
             let sLng = this.depItem.longitude;
@@ -307,6 +310,7 @@ export default {
                 service_type:       3,
                 start_position:     sPos,
                 start_address:      sAddr,
+                arr_teml_code:      sTerm,
                 end_position:       ePos,
                 type:               2,
                 remark:             remark,

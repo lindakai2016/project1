@@ -22,9 +22,7 @@
         </ul>
         <div class="bookType">
             <component v-bind:is="bookCmp" :odItem="odItem" class="bookCmp"></component>
-            <div class="posMap" v-show="showMap">
-                <el-amap :amap-manager="amapMng"></el-amap>
-            </div>
+            <div class="posMap" v-show="showMap" id="amap"></div>
         </div>
         <!--下单成功-->
         <basePopup v-model="showSuccDlg">
@@ -40,7 +38,6 @@ import cityCar from "./bookType/cityCar";
 import charter from "./bookType/charter";
 import basePopup from "@/commonComponents/basePopup";
 import bookSuccess from "./components/bookSuccess";
-import { AMapManager } from 'vue-amap';
 
 export default {
     components: {
@@ -64,8 +61,7 @@ export default {
     data() {
         return {
             bookType: 0,
-
-            amapMng: new AMapManager(),
+            amap: null,
             
             showSuccDlg: false,
 
@@ -111,8 +107,14 @@ export default {
         this.$store.dispatch("main/getCityList");
         this.$store.dispatch("main/getUserList");
         this.$store.dispatch("main/getPoiList");
+
+        this.amap = new window.AMap.Map('amap');
         let ct = localStorage.getItemObj("companyInfo").cityName || "北京";
         this.setMapCity(ct);
+    },
+    beforeDestroy() {
+        this.amap.destroy();
+        this.amap = null;
     },
     methods: {
         editBack() {
@@ -151,8 +153,9 @@ export default {
         // 经纬度查城市
         cityQuery(lng, lat) {
             return new Promise(resolve => {
-                let AMap = window.AMap;
-                AMap.service(["AMap.Geocoder"], function() {
+                let map = this.amap;
+                map.plugin("AMap.Geocoder", function() {
+                    let AMap = window.AMap;
                     let geocoder = new AMap.Geocoder();
                     geocoder.getAddress([lng, lat], function(status, result) {
                         if (status === 'complete' && result.regeocode) {
@@ -166,14 +169,11 @@ export default {
         // 路线规划
         drawMapLine(lon1, lat1, lon2, lat2) {
             this.$nextTick(() => {
-                let map = this.amapMng.getMap();
-                map && map.clearMap();
-                let AMap = window.AMap;
-                AMap.service(["AMap.Driving"], function() {
-                    let driving = new AMap.Driving({
-                        map:    map,
-                        panel: "panel"
-                    });
+                let map = this.amap;
+                map.clearMap();
+                map.plugin("AMap.Driving", function() {
+                    let AMap = window.AMap;
+                    let driving = new AMap.Driving({map});
                     driving.search(new AMap.LngLat(lon1, lat1), new AMap.LngLat(lon2, lat2));
                 });
             });
@@ -181,14 +181,12 @@ export default {
         // 清除地图
         clearMap() {
             this.$nextTick(() => {
-                let map = this.amapMng.getMap();
-                map && map.clearMap();
+                this.amap.clearMap();
             });
         },
         setMapCity(city) {
             this.$nextTick(() => {
-                let map = this.amapMng.getMap();
-                map && map.setCity(city);
+                this.amap.setCity(city);
             });
         }
     }

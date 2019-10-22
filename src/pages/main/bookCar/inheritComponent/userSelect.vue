@@ -60,7 +60,7 @@ export default {
         chooseUser(item) {
             this.$emit("inputValue",  item.contactPhone);
             this.$emit("chooseUser", item);
-            this.inFocus =false;
+            this.inFocus = false;
         },
         async delRcUser({ contactId }) {
             let op = await this.$dialog.delete("确定要删除此联系人？");

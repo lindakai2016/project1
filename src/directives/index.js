@@ -2,15 +2,14 @@ import Vue from "vue";
 
 Vue.directive('clickout', {
     bind(el, binding) {
-        const documentHandler = (e) => {
+        el.__vueClickOutside__ = (e) => {
             if (el.contains(e.target)) return;
             binding.value(e);
         }
-        el.__vueClickOutside__ = documentHandler;
-        document.addEventListener('click', documentHandler);
+        document.addEventListener('click', el.__vueClickOutside__);
     },
     unbind(el) {
         document.removeEventListener('click', el.__vueClickOutside__);
-        delete el.__vueClickOutside__;
+        el.__vueClickOutside__ = null;
     },
 });

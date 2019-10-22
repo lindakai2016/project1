@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "core-js": "^2.6.5",
     "echarts": "^4.3.0",
     "iview": "^3.5.1",
     "lodash": "^4.17.15",
@@ -17,10 +18,8 @@
     "qs": "^6.8.0",
     "v-charts": "^1.19.0",
     "vue": "^2.6.10",
-    "vue-amap": "^0.5.10",
     "vue-router": "^3.0.3",
-    "vuex": "^3.1.1",
-    "core-js": "^2.6.5"
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",

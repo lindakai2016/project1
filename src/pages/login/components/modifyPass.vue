@@ -84,6 +84,10 @@ export default {
             this.checkPassR();
         },
     },
+    destoryed() {
+        clearTimeout(this.codeCountTimer);
+        this.codeCountTimer = null;
+    },
     methods: {
         exit() {
             this.$emit("exit");

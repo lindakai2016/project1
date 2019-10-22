@@ -23,30 +23,6 @@ import "@/static/css/global.scss";
 import "@/static/css/custom.scss";
 import "@/static/css/reset.scss";
 
-// vue-amap组件
-import VueAMap from "vue-amap";
-Vue.use(VueAMap);
-
-VueAMap.initAMapApiLoader({
-    key: 'eb4247050dc36657f7b899eafd47998e',
-    plugin: [
-        'AMap.PlaceSearch',
-        'AMap.CitySearch',
-        'AMap.Scale',
-        'AMap.ToolBar',
-        'AMap.Autocomplete',
-        'AMap.Marker',
-        'AMap.Circle',
-        'AMap.Geolocation',
-
-        'AMap.MapType',
-        'AMap.PolyEditor',
-        'AMap.CircleEditor',
-        'AMap.OverView'
-    ],
-    uiVersion: '1.0.11',
-});
-
 new Vue({
     el: '#app',
     router,
