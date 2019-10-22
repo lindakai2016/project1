@@ -23,12 +23,12 @@ let router = new Router({
 router.beforeEach(beforeEach);
 
 // 屏蔽NavigationDuplicated错误
-// const oriPush = Router.prototype.push
-// Router.prototype.push = function push(location, onResolve, onReject) {
-//     if (onResolve || onReject) {
-//         return oriPush.call(this, location, onResolve, onReject);
-//     }
-//     return oriPush.call(this, location).catch(err => err);
-// }
+const oriPush = Router.prototype.push
+Router.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) {
+        return oriPush.call(this, location, onResolve, onReject);
+    }
+    return oriPush.call(this, location).catch(err => err);
+}
 
 export default router;

@@ -27,6 +27,7 @@
                 :editable="false"
                 :steps="[1,10]"
                 v-model="jcTime"
+                confirm
             ></TimePicker>
         </p>
         <p class="fi">

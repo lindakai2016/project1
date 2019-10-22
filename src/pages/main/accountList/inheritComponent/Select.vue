@@ -74,14 +74,15 @@ export default {
         color: #2C3642;
         cursor: pointer;
         border: 1px solid rgba(53,65,79,0.25);
+        display: flex;
         .sdv {
+            flex-grow: 1;
             font-size: 12px;
             &.place {
                 color: rgba(44,54,66,0.4);
             }
         }
         .iconfont {
-            float: right;
             font-size: 12px;
             color: #B8BCC1;
         }

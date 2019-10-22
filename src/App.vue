@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <router-view v-if="showRouter"/>
+        <router-view :key="rtVwKey"/>
     </div>
 </template>
 
@@ -14,15 +14,12 @@ export default {
     },
     data() {
         return {
-            showRouter: true,
+            rtVwKey: Date.now(),
         }
     },
     methods: {
         reload() {
-            this.showRouter = false;
-            this.$nextTick(() => {
-                this.showRouter = true;
-            })
+            this.rtVwKey = Date.now();
         }
     }
 }

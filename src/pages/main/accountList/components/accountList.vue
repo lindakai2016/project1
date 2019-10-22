@@ -17,7 +17,7 @@
                 <div class="td col_bz">{{item.remark}}</div>
                 <div class="td col_cz">
                     <i class="iconfont icon-icon_detail link czIc" title="查看详情" @click="detailAc(item)"></i>
-                    <i class="iconfont icon-bianji link czIc hov" title="编辑" @click="editAc(item)"></i>
+                    <i class="iconfont icon-bianji link czIc hov" title="编辑" @click="editAc(item)" v-if="item.userId != loginInfo.userId"></i>
                     <i class="iconfont icon-shanchu link czIc hov" title="删除" @click="deleteAc(item)" v-if="item.userId != loginInfo.userId"></i>
                 </div>
             </div>

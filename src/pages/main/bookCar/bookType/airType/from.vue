@@ -58,6 +58,7 @@
                 :editable="false"
                 :steps="[1,10]"
                 v-model="jcTime"
+                confirm
             ></TimePicker>
         </p>
         <p class="fi">
@@ -79,7 +80,6 @@
         <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="createOrderX" v-if="!edit">确认订单</button>
         <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="updateOrderX" v-if="edit">修改订单</button>
         <div class="smTip">请填写所有*必填信息</div>
-        <div id="panel" style="display: none"></div>
     </div>
 </template>
 
@@ -120,6 +120,7 @@ export default {
             useCarTime: "",     // byFly
             jcDate: "",         // byDep
             jcTime: "",
+            tmPkOpen: false,
 
             rideNum: "1",
             userPhone: "",

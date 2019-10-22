@@ -153,9 +153,8 @@ export default {
         // 经纬度查城市
         cityQuery(lng, lat) {
             return new Promise(resolve => {
-                let map = this.amap;
-                map.plugin("AMap.Geocoder", function() {
-                    let AMap = window.AMap;
+                let AMap = window.AMap;
+                AMap.plugin("AMap.Geocoder", function() {
                     let geocoder = new AMap.Geocoder();
                     geocoder.getAddress([lng, lat], function(status, result) {
                         if (status === 'complete' && result.regeocode) {
@@ -171,8 +170,8 @@ export default {
             this.$nextTick(() => {
                 let map = this.amap;
                 map.clearMap();
-                map.plugin("AMap.Driving", function() {
-                    let AMap = window.AMap;
+                let AMap = window.AMap;
+                AMap.plugin("AMap.Driving", function() {
                     let driving = new AMap.Driving({map});
                     driving.search(new AMap.LngLat(lon1, lat1), new AMap.LngLat(lon2, lat2));
                 });
