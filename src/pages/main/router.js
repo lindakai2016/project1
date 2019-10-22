@@ -28,6 +28,7 @@ export default [
                         name: "editOrder",
                         path: "edit",
                         component: bookCar,
+                        meta: {nofresh: true},
                     },
                 ]
             },

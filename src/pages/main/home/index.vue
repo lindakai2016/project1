@@ -3,13 +3,7 @@
         <banner class="sec1" :data="banData"></banner>
         <part2 class="sec2"></part2>
         <div class="filter">
-            <DatePicker class="datePicker" type="daterange" placeholder="选择时间" placement="bottom-end" :clearable="false" v-model="date"></DatePicker>
-            <selectGr class="dateSelect" v-model="dateSelect">
-                <optionLi label="本周" :value="1"></optionLi>
-                <optionLi label="本月" :value="2" selected="1"></optionLi>
-                <optionLi label="本季" :value="3"></optionLi>
-                <optionLi label="本年" :value="4"></optionLi>
-            </selectGr>
+            <DatePicker class="datePicker" :options="datePickerOption" type="daterange" placeholder="选择时间" placement="bottom-end" :clearable="false" v-model="date"></DatePicker>
         </div>
         <part3 class="sec3" :data="part3Data"></part3>
         <part4 class="sec4" :data="part4Data"></part4>
@@ -19,8 +13,6 @@
 </template>
 
 <script>
-import selectGr from "@/commonComponents/baseSelect";
-import optionLi from "@/commonComponents/baseOption";
 import banner from "./sections/banner";
 import part2 from "./sections/part2";
 import part3 from "./sections/part3";
@@ -32,8 +24,6 @@ import moment from "moment";
 
 export default {
     components: {
-        selectGr,
-        optionLi,
         banner,
         part2,
         part3,
@@ -45,8 +35,35 @@ export default {
         return {
             banData: {},
 
-            date: [],
-            dateSelect: 2,
+            date: Date.curMonth(),
+            datePickerOption: {
+				shortcuts: [
+					{
+						text: '本周',
+						value () {
+							return Date.curWeek();
+						}
+					},
+					{
+						text: '本月',
+						value () {
+							return Date.curMonth();
+						}
+					},
+					{
+						text: '本季度',
+						value () {
+							return Date.curQuarter();
+						}
+					},
+					{
+						text: '本年',
+						value () {
+							return Date.curYear();
+						}
+					},
+				]
+			},
 
             part3Data: {},
             part4Data: [],
@@ -55,23 +72,6 @@ export default {
         }
     },
     watch: {
-        dateSelect: {
-            immediate: true,
-            handler: function(v) {
-                if(v == 1) {
-                    this.date = Date.curWeek();
-                }
-                if(v == 2) {
-                    this.date = Date.curMonth();
-                }
-                if(v == 3) {
-                    this.date = Date.curQuarter();
-                }
-                if(v == 4) {
-                    this.date = Date.curYear();
-                }
-            }
-        },
         date() {
             this.getAccountOverview();
         }
@@ -126,10 +126,6 @@ export default {
         z-index: 100;
         .datePicker {
             margin-right: 13px;
-        }
-        .dateSelect {
-            width: 73px;
-            margin-right: 8px;
         }
     }
     .sec3 {

@@ -25,6 +25,7 @@ export default {
             extend: {
                 series: {
                     center: ['40%', '50%'],
+                    hoverOffset: 5,
                 },
                 color: ["#F4D458", "#E16C7D", "#72C87C", "#67C8CA", "#589EF8", "#5253C8"],
                 legend: {

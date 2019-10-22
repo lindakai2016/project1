@@ -35,6 +35,9 @@ export default [
     { name: "updateOrder", url: "/order/update", method: "post", loading: true, auth: true},
 
     { name: "lnglatFromFly", url: "/dep/info", method: "post", auth: true}, //查询站点经纬度
+
+    { name: "pubOrderDetail", url: "/public/order/detail", method: "get"}, 
+    { name: "pubOrderCancel", url: "/public/order/cancel", method: "post"}, 
 ]
 
 

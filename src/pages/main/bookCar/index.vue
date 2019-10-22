@@ -22,7 +22,7 @@
         </ul>
         <div class="bookType">
             <component v-bind:is="bookCmp" :odItem="odItem" class="bookCmp"></component>
-            <div class="posMap" v-show="showMap" id="amap"></div>
+            <div class="posMap" v-show="showMap" id="mapDiv"></div>
         </div>
         <!--下单成功-->
         <basePopup v-model="showSuccDlg">
@@ -108,7 +108,7 @@ export default {
         this.$store.dispatch("main/getUserList");
         this.$store.dispatch("main/getPoiList");
 
-        this.amap = new window.AMap.Map('amap');
+        this.amap = new window.AMap.Map("mapDiv");
         let ct = localStorage.getItemObj("companyInfo").cityName || "北京";
         this.setMapCity(ct);
     },
