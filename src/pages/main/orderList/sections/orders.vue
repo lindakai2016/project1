@@ -162,7 +162,7 @@ export default {
             }).catch(err => err);
         },
         // 取消
-        async cancel({orderId}) {
+        async cancel({orderId, orderStatus}) {
             let op = await this.$dialog.alert("确定取消订单？");
             if(op != "ok") {
                 return;
@@ -174,7 +174,7 @@ export default {
                     this.$message.warning(res.message || "请求失败");
                     return;
                 }
-                this.$message.success("申请取消订单成功");
+                this.$message.success(orderStatus == 0 ? "订单取消成功" : "订单取消申请成功");
                 this.$emit("update");
             }).catch(err => err);
         },

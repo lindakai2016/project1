@@ -53,7 +53,7 @@
                 <span class="val">{{odItem.rideNum}}人</span>
             </div>
             <div class="line">
-                <label class="lb">乘车人</label>
+                <label class="lb">联系人</label>
                 <span class="val">{{odItem.userName || "--"}}</span>
                 <span class="phone">{{odItem.userPhone || "--"}}</span>
             </div>

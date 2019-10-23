@@ -35,15 +35,12 @@
             <label class="lb needed">目的地</label>
             <poiInput class="rval v_ePos" :err="poiItemErr" :cityCode="eCtCode" :item="poiItem" @change="poiChange" :cityId="cityId" @blur="poiItemBlur"></poiInput>
         </p>
-        <p class="fi" v-if="byFly">
-            <label class="lb needed">用车时间</label>
-            <hbTimeSelect class="rval v_useTimeSel" :err="useCarTimeErr" v-model="useCarTime"></hbTimeSelect>
-        </p>
-        <p class="fi" v-if="byDep">
+        <p class="fi">
             <label class="lb needed">用车时间</label>
             <DatePicker 
                 class="rval v_useDate ivu-datepick-h35" 
                 :class="{err: jcDateErr}"
+                :options="datePickerOption"
                 type="date"
                 placeholder="选择日期"
                 :editable="false"
@@ -88,7 +85,6 @@ import inputGr from "../../inheritComponent/Input";
 import flyInput from "../../inheritComponent/flyInput";
 import depInput from "../../inheritComponent/depInput";
 import poiInput from "../../inheritComponent/poiInput";
-import hbTimeSelect from "../../inheritComponent/hbTimeSelect";
 import descInput from "../../inheritComponent/descInput";
 import userSelect from "../../inheritComponent/userSelect";
 import _ from "lodash";
@@ -101,7 +97,6 @@ export default {
         poiInput,
         flyInput,
         depInput,
-        hbTimeSelect,
         descInput,
         userSelect,
     },
@@ -117,10 +112,9 @@ export default {
             poiItem: {}, 
             cityId: "",
 
-            useCarTime: "",     // byFly
-            jcDate: "",         // byDep
+            jcDate: "",
             jcTime: "",
-            tmPkOpen: false,
+            datePickerOption: {},
 
             rideNum: "1",
             userPhone: "",
@@ -130,7 +124,6 @@ export default {
             flyItemErr: "",
             depItemErr: "",
             poiItemErr: "",
-            useCarTimeErr: "",
             jcDateErr: "",
             jcTimeErr: "",
             rideNumErr: "",
@@ -144,7 +137,7 @@ export default {
     computed: {
         formErr() {
             if(this.byFly) {
-                return this.flyItemErr || this.poiItemErr || this.useCarTimeErr || this.rideNumErr || this.userPhoneErr || "";
+                return this.flyItemErr || this.poiItemErr || this.jcDateErr || this.jcTimeErr || this.rideNumErr || this.userPhoneErr || "";
             }
             if(this.byDep) {
                 return this.depItemErr || this.poiItemErr || this.jcDateErr || this.jcTimeErr || this.rideNumErr || this.userPhoneErr || "";
@@ -158,12 +151,12 @@ export default {
             return this.by == 1;
         },
         canSubmit() {
-            let bol = this.rideNum && this.rideNum.validRideNum() && this.userPhone && this.userPhone.validPhone();
+            let bol = this.rideNum && this.rideNum.validRideNum() && this.userPhone && this.userPhone.validPhone() && this.jcDate && this.jcTime;
             if(this.byFly) {
-                bol = bol && this.flyItem && this.flyItem.flightNo && this.useCarTime;
+                bol = bol && this.flyItem && this.flyItem.flightNo;
             }
             if(this.byDep) {
-                bol = bol && this.depItem && this.depItem.depotName && this.jcDate && this.jcTime;
+                bol = bol && this.depItem && this.depItem.depotName;
             }
             bol = bol && this.poiItem && this.poiItem.name;
             return bol;
@@ -179,7 +172,7 @@ export default {
                     this.userName = order.userName;
                     this.remark = order.remark;
                     this.jcDate = order.serviceTime && new Date(order.serviceTime);
-                     this.jcTime = this.jcDate;
+                    this.jcTime = this.jcDate;
 
                     let sPos = order.startPosition;
                     let ePos = order.endPosition;
@@ -192,9 +185,8 @@ export default {
                         this.by = 1;
                         let flyItem = JSON.parse(order.flyInfo) || {};
                         this.qfDate = flyItem.depPlanTime && new Date(flyItem.depPlanTime);
-                        let arrPlanTime = flyItem.arrPlanTime && new Date(flyItem.arrPlanTime);
-                        this.useCarTime =this.jcDate && arrPlanTime && ~~((this.jcDate - arrPlanTime) / (60 * 1000));
                         this.flyItem = flyItem;
+                        this.setDatePickerOption();
                     }else {
                         this.by = 0;
                     }
@@ -219,9 +211,6 @@ export default {
                 }
             }  
         },
-        useCarTime() {
-            this.checkUserCarTime();
-        },
         jcDate() {
             this.checkJcDate();
         },
@@ -242,10 +231,74 @@ export default {
     methods: {
         setBy(n) {
             this.by = n;
+            if(this.byDep) {
+                this.depItem = {};
+                this.datePickerOption = {};
+            }
+            if(this.byFly) {
+                this.flyItem = {};
+                this.setDatePickerOption();
+            }
         },
         flyChange(flyItem) {
             this.flyItem = flyItem;
             this.cityId = flyItem.arrCityId;
+            //
+            this.jcDate = flyItem.arrPlanTime && moment(flyItem.arrPlanTime).add(15, "m").toDate();
+            this.jcTime = this.jcDate;
+            this.setDatePickerOption();
+        },
+        setDatePickerOption() {
+            let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";
+            if(!arrPlanTime) {
+                this.datePickerOption = {};
+                return;
+            }
+            let _this = this;
+            this.datePickerOption = {
+                shortcuts: [
+					{
+						text: '航班到达后15分钟',
+						value () {
+                            let d = moment(arrPlanTime).add(15, "m").toDate();
+                            _this.jcDate = d;
+                            _this.jcTime = d;
+						}
+					},
+					{
+						text: '航班到达后30分钟',
+						value () {
+							let d = moment(arrPlanTime).add(30, "m").toDate();
+                            _this.jcDate = d;
+                            _this.jcTime = d;
+						}
+					},
+					{
+						text: '航班到达后45分钟',
+						value () {
+							let d = moment(arrPlanTime).add(45, "m").toDate();
+                            _this.jcDate = d;
+                            _this.jcTime = d;
+						}
+					},
+					{
+						text: '航班到达后60分钟',
+						value () {
+							let d = moment(arrPlanTime).add(60, "m").toDate();
+                            _this.jcDate = d;
+                            _this.jcTime = d;
+						}
+					},
+					{
+						text: '航班到达后120分钟',
+						value () {
+							let d = moment(arrPlanTime).add(120, "m").toDate();
+                            _this.jcDate = d;
+                            _this.jcTime = d;
+						}
+					},
+				]
+            }
         },
         flyLnglat() {
             this.updateMap();
@@ -304,13 +357,6 @@ export default {
             this.poiItemErr = "";
             return;
         },
-        checkUserCarTime() {
-            if(!this.useCarTime) {
-                this.useCarTimeErr = "用车时间不能为空";
-                return;
-            }
-            this.useCarTimeErr = "";
-        },
         checkJcDate() {
             if(!this.jcDate) {
                 this.jcDateErr = "用车日期不能为空";
@@ -350,10 +396,9 @@ export default {
         createOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, svTime, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
-                svTime = moment(this.flyItem.arrPlanTime).add(this.useCarTime, "minutes").format("YYYY-MM-DD HH:mm:ss");
                 sPos = this.flyItem.arrName;
                 sTerm = this.flyItem.arrTerm;
 
@@ -367,8 +412,6 @@ export default {
                 sLat = this.flyItem.latitude;
             }else if(this.byDep) {
                 cityId = this.depItem.cityId;
-                svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
-                svTime += this.jcTime && (" " + this.jcTime + ":00");
                 sPos = this.depItem.depotName;
                 sTerm = this.depItem.depotTermCode;
 
@@ -378,6 +421,8 @@ export default {
             let ePos = this.poiItem.name;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
+            svTime += this.jcTime && (" " + this.jcTime + ":00");
 
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
@@ -396,7 +441,7 @@ export default {
                 type:               2,
                 remark:             remark,
 
-                flyNo:              flyNo,
+                fly_no:             flyNo,
                 fly_info:           flyInfo,
                 fly_date:           flyDate,
                 dep_code:           depCode,
@@ -412,10 +457,9 @@ export default {
         updateOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, svTime, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
-                svTime = moment(this.flyItem.arrPlanTime).add(this.useCarTime, "minutes").format("YYYY-MM-DD HH:mm:ss");
                 sPos = this.flyItem.arrName;
                 sTerm = this.flyItem.arrTerm;
 
@@ -429,8 +473,6 @@ export default {
                 sLat = this.flyItem.latitude;
             }else if(this.byDep) {
                 cityId = this.depItem.cityId;
-                svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
-                svTime += this.jcTime && (" " + this.jcTime + ":00");
                 sPos = this.depItem.depotName;
                 sTerm = this.depItem.depotTermCode;
 
@@ -440,6 +482,8 @@ export default {
             let ePos = this.poiItem.name;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
+            svTime += this.jcTime && (" " + this.jcTime + ":00");
 
             let orderId = this.odItem.orderId;
             let res = await this.cityQuery(sLng, sLat);
@@ -460,7 +504,7 @@ export default {
                 type:               2,
                 remark:             remark,
 
-                flyNo:              flyNo,
+                fly_no:             flyNo,
                 fly_info:           flyInfo,
                 fly_date:           flyDate,
                 dep_code:           depCode,

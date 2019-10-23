@@ -4,7 +4,7 @@
         <input class="input" type="text" placeholder="搜索航班号" v-model="flyKey" @input="input" @click="focus" ref="input" v-show="showInput" @dragstart.prevent>
         <div class="aipInfo" v-show="showApInfo" @click="clickAipInfo">
             <div class="big">{{flyItem.arrName || "--"}} {{flyItem.arrTerm && `${flyItem.arrTerm}航站楼`}}</div>
-            <div class="small">{{flyItem.depCityName || "--"}}-{{flyItem.arrCityName || "--"}} {{flyItem.flightNo || "--"}} {{flyItem.sDateEx || "--"}}起飞</div>
+            <div class="small">{{flyItem.depCityName || "--"}}-{{flyItem.arrCityName || "--"}} {{flyItem.flightNo || "--"}} {{flyDateEx || "--"}}</div>
         </div>
         <div class="apul" v-if="showApUl">
             <div class="apli" v-for="(item, i) in flyList" :key="i" @click="chooseFly(item)">
@@ -51,10 +51,17 @@ export default {
         },
         showApUl() {
             return this.inFocus && this.flyList;
-        }, 
-        dateEx() {
-            return this.date && moment(this.date).format("YYYY-MM-DD");
-        }
+        },
+        flyDateEx() {
+            let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";
+            let eDateEx = "";
+            if(arrPlanTime) {
+                let d = new Date() - new Date(arrPlanTime);
+                eDateEx = moment(arrPlanTime).format("MM月DD日 HH:mm");
+                eDateEx = d <= 0 ? `预计${eDateEx}到达` : `已于${eDateEx}到达`;
+            }
+            return eDateEx;
+        },
     },
     watch: {
         date() {
@@ -140,7 +147,6 @@ export default {
                     let eDate = e.arrPlanTime && moment(e.arrPlanTime).format("YYYY-MM-DD");
 
                     e.sDate = sDate;
-                    e.sDateEx = e.depPlanTime && moment(e.depPlanTime).format("MM月DD日 HH:mm");
                     e.sTime = e.depPlanTime && moment(e.depPlanTime).format("HH:mm");
                     e.eTime = e.arrPlanTime && moment(e.arrPlanTime).format("DD日 HH:mm");
 

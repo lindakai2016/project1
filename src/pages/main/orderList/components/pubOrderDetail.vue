@@ -1,7 +1,6 @@
 <template>
-    <div class="orderDetail orderDt">
+    <div class="orderDetail orderDt" v-if="orderInfo">
         <h3 class="head">订单详情</h3>
-        <i class="iconfont icon-icon_close_n link closeIcon" @click="exit"></i>
         <div class="statusPrg" v-if="hasOdFlow">
             <div class="spBg" :style="{width: odFlowBgW}">
                 <div class="spDone" :style="{width: odFlowW}"></div>
@@ -87,18 +86,25 @@
                 <span class="price" v-if="odItem.settleStatus == 1">{{odItem.settlePrice || "--"}}元</span>
             </div>
         </div>
-        <button class="carBtn blue okBtn" @click="exit">我知道了</button>
+        <button class="carBtn blue okBtn" @click="orderCancel">取消订单</button>
     </div>
 </template>
 
 <script>
 import moment from "moment";
+import _ from "lodash";
 
 export default {
-    props: ["data"],
+    data() {
+        return {
+            orderInfo: null,
+            orderId: "",
+            phone: "",
+        }
+    },
     computed: {
         odItem() {
-            let odItem =  this.data || {};
+            let odItem =  this.orderInfo || {};
             odItem.isCt = (odItem.type == 3);
             odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
             odItem.setterTypeEx = {1: "线上结算", 2: "线下结算"}[odItem.settleType];
@@ -121,6 +127,15 @@ export default {
             return i * 100 / (n - 1) + "%";
         },
     },
+    mounted() {
+        let {orderId, phone} = this.$route.query;
+        if(!orderId || !phone) {
+            return;
+        }
+        this.orderId = orderId;
+        this.phone = phone;
+        this.getOrderDetail();
+    },
     methods: {
         odFlowSt({viewType, current}) {
             return {
@@ -130,11 +145,8 @@ export default {
                 undone: !current && viewType == 3,
             }
         },
-        exit() {
-            this.$emit("exit");
-        },
-        getOrderDetail(orderId) {
-            let { phone } = localStorage.getItemObj("loginInfo") || {};
+        getOrderDetail() {
+            let {orderId, phone} = this;
             this.$api["pubOrderDetail"]({
                 phone,
                 order_id:   orderId,
@@ -143,11 +155,13 @@ export default {
                     this.$message.warning(res.message || "请求失败");
                     return;
                 }
-                this.$message.success("订单取消成功");
+                this.orderInfo = res.data || {};
             });
         },
-        orderCancel(orderId) {
+        orderCancel: _.debounce(function () {
+            let {orderId, phone} = this;
             this.$api["pubOrderCancel"]({
+                phone,
                 order_id:   orderId
             }).then(res => {
                 if(res.code != 100200) {
@@ -155,14 +169,15 @@ export default {
                     return;
                 }
                 this.$message.success("订单取消成功");
+                this.$router.push("/order");
             });
-        }
+        }, 300)
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/orderDetail.scss";
+@import "../scss/pubOrderDetail.scss";
 .orderDetail {
     max-height: calc(100vh - 30px);
     overflow: auto;

@@ -6,6 +6,8 @@ import accountList from "./accountList";
 import bookCar from "./bookCar";
 import orderListRV from "./orderList/routerView";
 
+import pubOrderDetail from "./orderList/components/pubOrderDetail";
+
 export default [
     {
         path: '/home',
@@ -40,6 +42,10 @@ export default [
                 path: "/book",
                 component: bookCar,
             },
+            {
+                path: "/pubOrder",
+                component: pubOrderDetail,
+            }
         ],
-    }, 
+    },
 ]

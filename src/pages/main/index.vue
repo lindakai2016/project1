@@ -2,7 +2,7 @@
     <div class="home">
         <div class="navBarWrap">
             <div class="navbar normalW">
-                <div class="company">活力武汉有限公司</div>
+                <div class="company">{{loginInfo.companyName || "--"}}</div>
                 <div class="navMenu">
                     <router-link to="/home" tag="span" class="navMi" active-class="active">首页</router-link>
                     <router-link to="/order" tag="span" class="navMi" active-class="active">订单</router-link>
