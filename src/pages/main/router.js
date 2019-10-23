@@ -12,15 +12,16 @@ export default [
     {
         path: '/home',
         component: main,
-        meta: { auth: true },
         children: [
             {
                 path: "",
                 component: home,
+                meta: { auth: true },
             },
             {
                 path: "/order",
                 component: orderListRV,
+                meta: { auth: true },
                 children: [
                     {
                         path: "",
@@ -37,10 +38,12 @@ export default [
             {
                 path: "/account",
                 component: accountList,
+                meta: { auth: true },
             },
             {
                 path: "/book",
                 component: bookCar,
+                meta: { auth: true },
             },
             {
                 path: "/pubOrder",

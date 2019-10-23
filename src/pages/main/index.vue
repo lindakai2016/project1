@@ -2,14 +2,14 @@
     <div class="home">
         <div class="navBarWrap">
             <div class="navbar normalW">
-                <div class="company">{{loginInfo.companyName || "--"}}</div>
+                <div class="company">{{companyInfo.companyName || "--"}}</div>
                 <div class="navMenu">
                     <router-link to="/home" tag="span" class="navMi" active-class="active">首页</router-link>
                     <router-link to="/order" tag="span" class="navMi" active-class="active">订单</router-link>
                     <router-link to="/book" tag="span" class="navMi" active-class="active">订车</router-link>
                     <router-link to="/account" tag="span" class="navMi" active-class="active" v-if="isRoot">账号管理</router-link>
                 </div>
-                <div class="user">
+                <div class="user" v-if="isLogin">
                     <div class="uh">
                         <p class="name">{{loginInfo.name || "--"}}</p>
                         <i class="iconfont icon-home_icon_s"></i>
@@ -19,6 +19,7 @@
                         <li class="umi" @click="logout">退出</li>
                     </ul>
                 </div>
+                <router-link to="/login" tag="div" class="loginLink" v-if="!isLogin">登录</router-link>
             </div>
         </div>
         <div class="page normalW">
@@ -54,7 +55,9 @@ export default {
     data () {
         return {
             showMfDlg: false,
+
             loginInfo: {},
+            companyInfo: {},
         }
     },
     computed: {
@@ -63,10 +66,14 @@ export default {
         },
         isRoot() {
             return this.loginInfo.mgrType == 1;
+        },
+        isLogin() {
+            return this.loginInfo.token;
         }
     },
     mounted() {
-        this.loginInfo = localStorage.getItemObj("loginInfo") || {};
+        this.loginInfo = localStorage.getItemObj("loginInfo");
+        this.companyInfo = localStorage.getItemObj("companyInfo");
     },
     methods: {
         openMfDlg() {
@@ -139,6 +146,13 @@ export default {
                         color: #000;
                     }
                 }
+            }
+            .loginLink {
+                margin-left: 150px;
+                text-align: center;
+                cursor: pointer;
+                color: #4780F7;
+                font-size: 16px;
             }
             .user {
                 margin-left: 150px;

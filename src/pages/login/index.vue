@@ -1,5 +1,5 @@
 <template>
-    <div class="login" :style="{backgroundImage: `url(${companyBg})`}" @dragstart.prevent v-if="pgInit">
+    <div class="login" :style="{backgroundImage: `url(${companyBg})`}" @dragstart.prevent>
         <div class="loginBox">
             <div class="logo" v-if="company.customLogo">
                 <img class="logoImg" :src="company.customLogo">
@@ -37,8 +37,10 @@ export default {
             loginType: 0,   //0-短信，1-密码
 
             company: {},
-            pgInit: 0,
         }
+    },
+    mounted() {
+        this.company = localStorage.getItemObj("companyInfo");
     },
     computed: {
         loginTypeComponnet() {
@@ -48,31 +50,9 @@ export default {
             return this.company.customLoginBg || require("../../static/images/login_bg.png");
         },
     },
-    mounted() {
-        this.getCompanyInfo();
-    },
     methods: {
         setLoginType(n) {
             this.loginType = n;
-        },
-        // 登录页信息查询
-        getCompanyInfo() {
-            let companyCode = localStorage.getItem("companyCode");
-            this.$api["companyInfo"]({
-                companyCode,
-            }).then(res => {
-                this.pgInit = 1;
-                if(res.code != 100200) {
-                    this.$message.warning(res.message || "请求失败");
-                    return;
-                }
-                let company = res.data || {};
-                localStorage.setItemObj("companyInfo", company);
-                this.company = company;
-            }).catch(err => {
-                this.pgInit = 1;
-                console.log(err);
-            })
         }
     }
 }

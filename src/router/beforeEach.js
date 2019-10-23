@@ -1,3 +1,16 @@
+import Vue from "vue";
+const vue = new Vue();
+
+async function getCompanyInfo(companyCode) {
+    let res = await vue.$api["companyInfo"]({ companyCode });
+    if(res.code != 100200) {
+        vue.$message.warning(res.message || "请求失败");
+        return;
+    }
+    let company = res.data || {};
+    localStorage.setItemObj("companyInfo", company);
+}
+
 let routeCount = 0;
 
 export default (to, from, next) => {
@@ -8,7 +21,10 @@ export default (to, from, next) => {
     }
     if(to.query.companyCode) {
         let cpyCode = to.query.companyCode;
-        localStorage.setItem("companyCode", cpyCode);
+        getCompanyInfo(cpyCode).then(() => {
+            next();
+        });
+        return;
     }
     if(to.matched.some(e => e.meta.auth)) {
         let logininfo = localStorage.getItemObj("loginInfo") || {};
