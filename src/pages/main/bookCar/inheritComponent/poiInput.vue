@@ -47,6 +47,7 @@
 import _ from "lodash";
 
 export default {
+    name: "poiInput",
     props: ["cityId", "err", "cityCode", "item"],
     inject: ["cityQuery"],
     data() {

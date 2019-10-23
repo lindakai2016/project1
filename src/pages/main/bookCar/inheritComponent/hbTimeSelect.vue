@@ -11,6 +11,7 @@ import selectGr from "./Select";
 import optionLi from "@/commonComponents/baseOption";
 
 export default {
+    name: "hbTimeSelect",
     props: ["err", "value"],
     components: {
         selectGr,

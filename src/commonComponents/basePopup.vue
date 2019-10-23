@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    name: "basePopup",
     props: {
         visible: {type: Boolean, default: false},
         closeOnClickout: {type: Boolean, default: true}

@@ -11,6 +11,7 @@
 import cityCarForm from "./cityCarType";
 
 export default {
+    name: "cityCar",
     props: ["odItem"],
     components: {
         cityCarForm,

@@ -42,6 +42,7 @@ import _ from "lodash";
 // import testAccountList from "./testData/accountList";
 
 export default {
+    name: "accountListIndex",
     components: {
         inputGr,
         selectGr,

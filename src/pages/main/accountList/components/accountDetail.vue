@@ -1,5 +1,5 @@
 <template>
-    <div class="newAccount">
+    <div class="accountDetail">
         <h3 class="head">账号详情</h3>
         <i class="iconfont icon-icon_close_n link closeIcon" @click="exit"></i>
         <div class="form">
@@ -27,6 +27,7 @@
 
 <script>
 export default {
+    name: "accountDetail",
     props: ["acItem"],
     computed: {
         item() {
@@ -45,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.newAccount {
+.accountDetail {
     max-height: calc(100vh - 30px);
     overflow: auto;
     width: 670px;

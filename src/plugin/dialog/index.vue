@@ -19,6 +19,7 @@
 import basePopup from "@/commonComponents/basePopup";
 
 export default {
+    name: "plugin-dialog",
     components: {
         basePopup,
     },

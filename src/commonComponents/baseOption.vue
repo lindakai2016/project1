@@ -5,6 +5,7 @@
 <script>
 
 export default {
+    name: "baseOption",
     props: ["label", "value", "selected"],
     inject: ["selectGr"],
     data() {

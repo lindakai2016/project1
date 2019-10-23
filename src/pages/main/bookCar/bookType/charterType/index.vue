@@ -73,6 +73,7 @@ import moment from 'moment';
 import _ from "lodash";
 
 export default {
+    name: "chartType",
     props: ["odItem"],
     components: {
         inputGr,

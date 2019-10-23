@@ -32,6 +32,7 @@
 import progressGr from "@/commonComponents/baseProgress";
 
 export default {
+    name: "homepart5",
     props: ["data"],
     components: {
         progressGr,

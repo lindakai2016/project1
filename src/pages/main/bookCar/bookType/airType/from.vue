@@ -1,18 +1,18 @@
 <template>
     <!--接机-->
     <div class="fromAirport bookForm">
-        <p class="odBy" v-if="byFly">
+        <p class="odBy" v-show="byFly">
             不清楚航班号？按<i class="link" @click="setBy(0)">机场预定</i>
             <i class="iconfont icon-home_icon_more_right_n"></i>
         </p>
-        <p class="odBy" v-if="byDep">
+        <p class="odBy" v-show="byDep">
             航班延误免费等，<i class="link" @click="setBy(1)">航班号预定</i>
             <i class="iconfont icon-home_icon_more_right_n"></i>
         </p>
         <div class="errInfo" :class="{show: formErr}">
             <i class="iconfont icon-login_icon_error1"></i>{{formErr}}
         </div>
-        <p class="fi" v-if="byFly">
+        <p class="fi" v-show="byFly">
             <label class="lb needed">起飞日期</label>
             <DatePicker 
                 class="rval v_takeOffDate ivu-datepick-h35"
@@ -23,11 +23,11 @@
                 :editable="false"
             ></DatePicker>
         </p>
-        <p class="fi" v-if="byFly">
+        <p class="fi" v-show="byFly">
             <label class="lb needed">航班号</label>
             <flyInput class="rval v_airport" :err="flyItemErr" :item="flyItem" :date="qfDate" @change="flyChange" @lnglat="flyLnglat" @blur="flyItemBlur"></flyInput>
         </p>
-        <p class="fi" v-if="byDep">
+        <p class="fi" v-show="byDep">
             <label class="lb needed">航站楼</label>
             <depInput class="rval v_teminal" :err="depItemErr" :cityCode="sCtCode" :item="depItem" :type="0" @change="depChange" @changeCity="depCityChange" @blur="depItemBlur"></depInput>
         </p>
@@ -74,8 +74,8 @@
             <label class="lb">用车要求</label>
             <descInput class="rval v_odDesc" v-model="remark"></descInput>
         </p>
-        <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="createOrderX" v-if="!edit">确认订单</button>
-        <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="updateOrderX" v-if="edit">修改订单</button>
+        <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="createOrderX" v-show="!edit">确认订单</button>
+        <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="updateOrderX" v-show="edit">修改订单</button>
         <div class="smTip">请填写所有*必填信息</div>
     </div>
 </template>
@@ -91,6 +91,7 @@ import _ from "lodash";
 import moment from 'moment';
 
 export default {
+    name: "airFrom",
     props: ["odItem"],
     components: {
         inputGr,

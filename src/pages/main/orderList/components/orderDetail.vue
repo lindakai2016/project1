@@ -95,6 +95,7 @@
 import moment from "moment";
 
 export default {
+    name: "orderDetail",
     props: ["data"],
     computed: {
         odItem() {

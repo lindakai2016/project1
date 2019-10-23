@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    name: "plugin-message",
     data() {
         return {
             show: false,

@@ -29,6 +29,7 @@ import passInput from "../inheritComponent/passInput";
 import _ from "lodash";
 
 export default {
+    name: "byPass",
     components: {
         basePopup,
         forgetPass,

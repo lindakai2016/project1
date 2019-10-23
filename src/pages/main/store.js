@@ -1,5 +1,5 @@
 import Vue from "vue";
-let vue = new Vue();
+const vue = new Vue();
 
 export default {
     namespaced: true,

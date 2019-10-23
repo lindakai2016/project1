@@ -12,6 +12,7 @@
 <script>
 
 export default {
+    name: "baseDrop",
     props: ["notri"],
     data() {
         return {

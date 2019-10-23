@@ -40,6 +40,7 @@ import huoliHomeFooter from "@/pages/huoli/homeFooter";
 import _ from "lodash";
 
 export default {
+    name: "orderList",
     components: {
         basePopup,
         modifyPass,

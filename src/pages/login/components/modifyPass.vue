@@ -29,6 +29,7 @@ import passInput from "../inheritComponent/passInput";
 import _ from "lodash";
 
 export default {
+    name: "modifyPass",
     props: ["forget", "pwdType"],     //0-设置密码，1-重置密码
     components: {
         inputGr,

@@ -33,6 +33,7 @@
 
 <script>
 export default {
+    name: "odSelect",
     data() {
         return {
             drop: false,

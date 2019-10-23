@@ -16,6 +16,7 @@
 import baseDrop from "@/commonComponents/baseDrop";
 
 export default {
+    name: "bookCar-select",
     props: ["placeholder", "value"],
     components: {
         baseDrop,

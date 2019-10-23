@@ -14,6 +14,7 @@
 
 <script>
 export default {
+    name: "bookSuccess",
     data () {
         return {
             

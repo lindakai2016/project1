@@ -18,6 +18,7 @@ import airFrom from "./airType/from";
 import airTo from "./airType/to";
 
 export default {
+    name: "airplane",
     props: ["odItem"],
     components: {
         airFrom,

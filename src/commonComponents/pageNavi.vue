@@ -20,6 +20,7 @@
 
 <script>
 export default {
+    name: "pageNavi",
     props: ["page","total"],
     data() {
         return {

@@ -19,6 +19,7 @@
 
 <script>
 export default {
+    name: "homepart6",
     props: ["data"],
     data() {
         return {

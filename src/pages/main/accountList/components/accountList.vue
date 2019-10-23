@@ -43,6 +43,7 @@ import accountDetail from "./accountDetail";
 import newAccount from "./newAccount";
 
 export default {
+    name: "accounts",
     props: ["data"],
     components: {
         accountDetail,

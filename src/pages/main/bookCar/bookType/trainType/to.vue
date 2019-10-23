@@ -53,7 +53,6 @@
         <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="createOrderX" v-if="!edit">确认订单</button>
         <button class="carBtn blue submitBtn" :class="{gray: !canSubmit}" @click="updateOrderX" v-if="edit">修改订单</button>
         <div class="smTip">请填写所有*必填信息</div>
-        <div id="panel" style="display: none"></div>
     </div>
 </template>
 
@@ -67,6 +66,7 @@ import moment from 'moment';
 import _ from "lodash";
 
 export default {
+    name: "trainTo",
     props: ["odItem"],
     components: {
         inputGr,

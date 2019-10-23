@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    name: "bookCar-input",
     props: ["type", "placeholder", "value", "clear", "err"],
     model: {
         prop: "value",

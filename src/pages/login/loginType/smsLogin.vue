@@ -21,6 +21,7 @@ import inputGr from "../inheritComponent/Input";
 import _ from "lodash";
 
 export default {
+    name: "bySms",
     components: {
         inputGr
     },

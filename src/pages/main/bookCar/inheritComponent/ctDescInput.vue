@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    name: "ctDescInput",
     props: ["value", "err"],
     model: {
         prop: "value",

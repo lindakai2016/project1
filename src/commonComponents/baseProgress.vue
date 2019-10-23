@@ -7,6 +7,7 @@
 <script>
 
 export default {
+    name: "baseProgress",
     props: ["step", "color"],
     computed: {
         width() {

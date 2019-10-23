@@ -95,6 +95,7 @@ import moment from "moment";
 import _ from "lodash";
 
 export default {
+    name: "pubOrderDetail",
     data() {
         return {
             orderInfo: null,

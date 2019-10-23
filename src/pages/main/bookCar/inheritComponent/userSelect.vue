@@ -21,6 +21,7 @@
 
 <script>
 export default {
+    name: "userSelect",
     props: ["value", "err"],
     model: {
         prop: "value",

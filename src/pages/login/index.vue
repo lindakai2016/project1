@@ -26,6 +26,7 @@ import passLogin from "./loginType/passLogin";
 import huoliLoginFooter from "@/pages/huoli/loginFooter";
 
 export default {
+    name: "login",
     components: {
         smsLogin,
         passLogin,

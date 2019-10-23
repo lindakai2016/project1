@@ -16,6 +16,7 @@
 import baseDrop from "./baseDrop";
 
 export default {
+    name: "baseSelect",
     props: ["value"],
     model: {
         prop: "value",

@@ -27,6 +27,7 @@
 
 <script>
 export default {
+    name: "depInput",
     props: ["type", "cityId", "err", "cityCode", "item"],
     data() {
         return {

@@ -30,6 +30,7 @@
 import moment from "moment";
 
 export default {
+    name: "homepart2",
     data () {
         return {
             orderList: [],

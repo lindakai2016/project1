@@ -32,6 +32,7 @@ import moment from "moment";
 import _ from "lodash";
 
 export default {
+    name: "flyInput",
     props: ["date", "err", "item"],
     data() {
         return {

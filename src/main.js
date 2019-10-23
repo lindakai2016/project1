@@ -6,7 +6,6 @@ import '@/plugin';
 import "@/directives";
 import '@/utils/prototype';
 import "@/api";
-import "@/utils/bus";
 
 // v-charts图表
 import VCharts from 'v-charts';
@@ -19,12 +18,13 @@ Vue.component('DatePicker', DatePicker);
 Vue.component('TimePicker', TimePicker);
 Vue.component('iSwitch', Switch);
 
+Vue.config.productionTip = false;
+
 import "@/static/css/global.scss";
 import "@/static/css/custom.scss";
 import "@/static/css/reset.scss";
 
 new Vue({
-    el: '#app',
     router,
     store,
     render: h => h(App)

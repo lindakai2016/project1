@@ -9,6 +9,7 @@
 <script>
 
 export default {
+    name: "srchInput",
     props: ["placeholder", "value"],
     model: {
         prop: "value",

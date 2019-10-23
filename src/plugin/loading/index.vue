@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "plugin-loading",
     data() {
         return {
             count: 0,

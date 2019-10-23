@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    name: "login-input",
     props: ["type", "placeholder", "value", "clear"],
     model: {
         prop: "value",

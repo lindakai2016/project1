@@ -9,6 +9,10 @@
     </div>
 </template>
 
+export default {
+    name: "moreDrop",
+}
+
 <style lang="scss" scoped>
 .moreDrop {
     display: inline-block;

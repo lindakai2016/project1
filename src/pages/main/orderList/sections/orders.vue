@@ -86,6 +86,7 @@ import moment from "moment";
 // import testOrderDetail from "../testData/orderDetail";
 
 export default {
+    name: "orders",
     props: ["data"],
     components: {
         moreDrop,

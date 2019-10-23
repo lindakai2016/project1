@@ -34,6 +34,7 @@ import inputGr from "../inheritComponent/Input";
 import _ from "lodash";
 
 export default {
+    name: "newAccount",
     props: ["acItem", "type"],
     components: {
         inputGr,

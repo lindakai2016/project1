@@ -33,6 +33,7 @@
 
 <script>
 export default {
+    name: "homepart3",
     props: ["data"],
     computed: {
         account() {

@@ -18,6 +18,7 @@ import trainFrom from "./trainType/from";
 import trainTo from "./trainType/to";
 
 export default {
+    name: "train",
     props: ["odItem"],
     components: {
         trainFrom,

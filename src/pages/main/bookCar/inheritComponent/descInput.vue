@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    name: "descInput",
     props: ["value", "err"],
     model: {
         prop: "value",

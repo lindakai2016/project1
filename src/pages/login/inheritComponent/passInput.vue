@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "passinput",
     props: ["placeholder", "value"],
     model: {
         prop: "value",

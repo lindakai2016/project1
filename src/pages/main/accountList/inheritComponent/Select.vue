@@ -17,6 +17,7 @@
 import baseDrop from "@/commonComponents/baseDrop";
 
 export default {
+    name: "account-select",
     props: ["value", "placeholder"],
     model: {
         prop: "value",

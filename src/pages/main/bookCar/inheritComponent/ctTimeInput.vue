@@ -18,6 +18,7 @@
 <script>
 
 export default {
+    name: "ctTimeInput",
     props: ["value", "err"],
     model: {
         prop: "value",

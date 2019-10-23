@@ -11,6 +11,7 @@
 import charterForm from "./charterType";
 
 export default {
+    name: "charter",
     props: ["odItem"],
     components: {
         charterForm,

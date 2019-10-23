@@ -7,6 +7,7 @@
 
 <script>
 export default {
+    name: "homepart4",
     props: ["data"],
     data() {
         return {

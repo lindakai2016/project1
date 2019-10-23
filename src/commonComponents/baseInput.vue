@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    name: "baseInput",
     props: ["type", "placeholder", "value", "clear"],
     model: {
         prop: "value",
