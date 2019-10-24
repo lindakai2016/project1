@@ -20,7 +20,16 @@ export default {
         },
         setPoiList(state, list) {
             state.poiList = list;
-        }
+        },
+        clearCityList(state) {
+            state.cityList = null;
+        },
+        clearUserList(state) {
+            state.userList = null;
+        },
+        clearPoiList(state) {
+            state.poiList = null;
+        },
     },
     actions: { 
         getCityList(context) {

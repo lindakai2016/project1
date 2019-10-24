@@ -113,6 +113,10 @@ export default {
         this.setMapCity(ct);
     },
     beforeDestroy() {
+        this.$store.commit("main/clearCityList");
+        this.$store.commit("main/clearUserList");
+        this.$store.commit("main/clearPoiList");
+
         this.amap.clearMap();
         this.amap.destroy();
         this.amap = null;

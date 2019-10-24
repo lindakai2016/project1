@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         showClear() {
-            return this.value;
+            return !!this.value;
         }
     },
     methods: {

@@ -44,9 +44,8 @@ export default {
             immediate: true,
             handler(order) {
                 if(order) {
-                    let st = order.serviceType;
-                    (st == 3) && (this.trainType = 0);
-                    (st == 4) && (this.trainType = 1);
+                    (order.serviceType == 3) && (this.trainType = 0);
+                    (order.serviceType == 4) && (this.trainType = 1);
                     this.edit = 1;
                 }
             }

@@ -83,6 +83,7 @@ import dropOption from "@/commonComponents/baseDropOption";
 import moreDrop from "../inheritComponent/moreDrop";
 import orderDetail from "../components/orderDetail";
 import moment from "moment";
+import _ from "lodash";
 // import testOrderDetail from "../testData/orderDetail";
 
 export default {
@@ -96,23 +97,30 @@ export default {
     },
     data () {
         return {
+            orderList: [],
+            
             showDt: false,
             odDt: {},
         }
     },
     computed: {
-        orderList() {
-            let list =  this.data || [];
-            list.map(e => {
-                e.isCt = (e.type == 3);
-                e.serviceTimeStr = e.serviceTime && moment(e.serviceTime).format("YYYY-MM-DD HH:mm") || "--";
-                e.pgDayEx = e.serviceDay == 0.5 ? "半" : e.serviceDay;
-                e.serviceTypeEx = e.isCt ? `包车${e.pgDayEx || "--"}天` : e.serviceTypeDesc;
-            });
-            return list;
-        },
         hasOrder() {
             return this.orderList.length;
+        }
+    },
+    watch: {
+        data: {
+            immediate: true,
+            handler(val){
+                let list = _.cloneDeep(val) || [];
+                list.map(e => {
+                    e.isCt = (e.type == 3);
+                    e.serviceTimeStr = e.serviceTime && moment(e.serviceTime).format("YYYY-MM-DD HH:mm") || "--";
+                    e.pgDayEx = e.serviceDay == 0.5 ? "半" : e.serviceDay;
+                    e.serviceTypeEx = e.isCt ? `包车${e.pgDayEx || "--"}天` : e.serviceTypeDesc;
+                });
+                this.orderList = list;
+            }
         }
     },
     methods: {

@@ -41,6 +41,7 @@
 import basePopup from "@/commonComponents/basePopup";
 import accountDetail from "./accountDetail";
 import newAccount from "./newAccount";
+import _ from "lodash";
 
 export default {
     name: "accounts",
@@ -52,6 +53,8 @@ export default {
     },
     data () {
         return {
+            accountList: [],
+
             showAcDt: false,
             acItem: {},
 
@@ -61,15 +64,20 @@ export default {
         }
     },
     computed: {
-        accountList() {
-            let list = this.data || [];
-            list.map(e => {
-                e.statusStr = {0: "停用", 1: "正常"}[e.status] || "--";
-            });
-            return list;
-        },
         hasAccount() {
-            return this.data && this.data.length;
+            return !!this.accountList.length;
+        }
+    },
+    watch: {
+        data: {
+            immediate: true,
+            handler(val) {
+                let list = _.cloneDeep(val) || [];
+                list.map(e => {
+                    e.statusStr = {0: "停用", 1: "正常"}[e.status] || "--";
+                });
+                this.accountList = list;
+            }
         }
     },
     mounted() {

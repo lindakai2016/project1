@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
     name: "depInput",
     props: ["type", "cityId", "err", "cityCode", "item"],
@@ -105,9 +107,14 @@ export default {
         item: {
             immediate: true,
             handler(val) {
+                val = _.cloneDeep(val);
                 val && this.initDepItem(val);
             }
         }
+    },
+    beforeDestroy() {
+        this.cityItem = null;
+        this.depItem = null;
     },
     methods: {
         initCity() {

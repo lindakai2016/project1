@@ -30,6 +30,7 @@
 
 <script>
 import progressGr from "@/commonComponents/baseProgress";
+import _ from "lodash";
 
 export default {
     name: "homepart5",
@@ -37,14 +38,22 @@ export default {
     components: {
         progressGr,
     },
-    computed: {
-        personList() {
-            let list = this.data || [];
-            list.map(e => {
-                e.orderRatePec = ~~(e.orderRate * 100) + "%";
-                e.orderPriceRatePec = ~~(e.orderPriceRate * 100) + "%";
-            });
-            return list;
+    data() {
+        return {
+            personList: [],
+        }
+    },
+    watch: {
+        data: {
+            immediate: true,
+            handler(val) {
+                let list = _.cloneDeep(val) || [];
+                list.map(e => {
+                    e.orderRatePec = ~~(e.orderRate * 100) + "%";
+                    e.orderPriceRatePec = ~~(e.orderPriceRate * 100) + "%";
+                });
+                this.personList = list;
+            }
         }
     }
 }

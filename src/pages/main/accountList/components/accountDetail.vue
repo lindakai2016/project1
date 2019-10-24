@@ -26,14 +26,24 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
     name: "accountDetail",
     props: ["acItem"],
-    computed: {
-        item() {
-            let item = this.acItem || {};
-            item.statusStr = {0: "停用", 1: "正常"}[item.status] || "--"
-            return item;
+    data() {
+        return {
+            item: {},
+        }
+    },
+    watch: {
+        acItem: {
+            immediate: true,
+            handler(val) {
+                let item = _.cloneDeep(val) || {};
+                item.statusStr = {0: "停用", 1: "正常"}[item.status] || "--";
+                this.item = item;
+            }
         }
     },
     methods: {

@@ -93,21 +93,17 @@
 
 <script>
 import moment from "moment";
+import _ from "lodash";
 
 export default {
     name: "orderDetail",
     props: ["data"],
+    data() {
+        return {
+            odItem: {},
+        }
+    },
     computed: {
-        odItem() {
-            let odItem =  this.data || {};
-            odItem.isCt = (odItem.type == 3);
-            odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
-            odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
-            odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
-            !odItem.orderFlow && (odItem.orderFlow = []);
-            odItem.orderFlow.map((e, i) => e.idx = i);
-            return odItem;
-        },
         hasOdFlow() {
             return this.odItem.orderFlow.length;
         },
@@ -121,6 +117,21 @@ export default {
             let i = (this.odItem.orderFlow.filter(e => e.current)[0] || {}).idx;
             return i * 100 / (n - 1) + "%";
         },
+    },
+    watch: {
+        data: {
+            immediate: true,
+            handler(val) {
+                let odItem = _.cloneDeep(val) || {};
+                odItem.isCt = (odItem.type == 3);
+                odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
+                odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
+                odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
+                !odItem.orderFlow && (odItem.orderFlow = []);
+                odItem.orderFlow.map((e, i) => e.idx = i);
+                this.odItem = odItem;
+            }
+        }
     },
     methods: {
         odFlowSt({viewType, current}) {

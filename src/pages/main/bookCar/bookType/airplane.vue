@@ -44,9 +44,8 @@ export default {
             immediate: true,
             handler(order) {
                 if(order) {
-                    let st = order.serviceType;
-                    (st == 1) && (this.airType = 0);
-                    (st == 2) && (this.airType = 1);
+                    (order.serviceType == 1) && (this.airType = 0);
+                    (order.serviceType == 2) && (this.airType = 1);
                     this.edit = 1;
                 }
             }

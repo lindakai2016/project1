@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
     name: "homepart4",
     props: ["data"],
@@ -108,29 +110,32 @@ export default {
         }
     },
     watch: {
-        data(val) {
-            let data = val || [];
-            let xData = data.map(e => e.date);
-            let arr0 = data.map(e => e.orderNum);
-            let arr1 = data.map(e => e.orderPrice);
-            xData.length <= 0 && (xData = [0]);
-            arr0.length <= 0 && (arr0 = [0]);
-            arr1.length <= 0 && (arr1 = [0]);
-            this.xAxis.data = xData;
-            this.series = [
-                {
-                    name: "订单量",
-                    type: "line",
-                    yAxisIndex: 0,
-                    data: arr0,
-                },
-                {
-                    name: "订单金额",
-                    type: "line",
-                    yAxisIndex: 1,
-                    data: arr1,
-                },
-            ]
+        data: {
+            immediate: true,
+            handler(val) {
+                let data = _.cloneDeep(val) || [];
+                let xData = data.map(e => e.date);
+                let arr0 = data.map(e => e.orderNum);
+                let arr1 = data.map(e => e.orderPrice);
+                xData.length <= 0 && (xData = [0]);
+                arr0.length <= 0 && (arr0 = [0]);
+                arr1.length <= 0 && (arr1 = [0]);
+                this.xAxis.data = xData;
+                this.series = [
+                    {
+                        name: "订单量",
+                        type: "line",
+                        yAxisIndex: 0,
+                        data: arr0,
+                    },
+                    {
+                        name: "订单金额",
+                        type: "line",
+                        yAxisIndex: 1,
+                        data: arr1,
+                    },
+                ]
+            }
         }
     },
 }

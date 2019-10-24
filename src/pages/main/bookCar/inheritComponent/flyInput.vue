@@ -77,9 +77,14 @@ export default {
         item: {
             immediate: true,
             handler(val) {
+                val = _.cloneDeep(val);
                 val && this.initFlyItem(val);
             }
         }
+    },
+     beforeDestroy() {
+        this.flyList = null;
+        this.flyItem = null;
     },
     methods: {
         initFlyItem(item) {

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
     name: "homepart6",
     props: ["data"],
@@ -132,39 +134,44 @@ export default {
                             </div>`;
                 },
             },
+
+            chart1Data: {},
+            chart2Data: {},
+            chart3Data: {},
         }
     },
     watch: {
-        data(val) {
-            let chart1 = val && val.orderTypeOverview || {};
-            let chart2 = val && val.orderPriceOverview || {};
-            let chart3 = val && val.settleOverview || {};
-            let fmt1 = [`{a|${chart1.total || 0}}`, '{b|总订单}'].join('\n');
-            let fmt2 = [`{a|${chart2.total || 0}}`, '{b|总金额}'].join('\n');
-            let fmt3 = [`{a|${chart3.total || 0}}`, '{b|总订单}'].join('\n');
-            this.$set(this.settings1.label, "formatter", fmt1);
-            this.$set(this.settings2.label, "formatter", fmt2);
-            this.$set(this.settings3.label, "formatter", fmt3);
+        data: {
+            immediate: true,
+            handler(val) {
+                val = _.cloneDeep(val) || {};
+                let chart1 = val.orderTypeOverview || {};
+                let chart2 = val.orderPriceOverview || {};
+                let chart3 = val.settleOverview || {};
+                let fmt1 = [`{a|${chart1.total || 0}}`, '{b|总订单}'].join('\n');
+                let fmt2 = [`{a|${chart2.total || 0}}`, '{b|总金额}'].join('\n');
+                let fmt3 = [`{a|${chart3.total || 0}}`, '{b|总订单}'].join('\n');
+                this.$set(this.settings1.label, "formatter", fmt1);
+                this.$set(this.settings2.label, "formatter", fmt2);
+                this.$set(this.settings3.label, "formatter", fmt3);
+
+                let columns = ["name", "value"];
+                let rows = val.orderTypeOverview && val.orderTypeOverview.list || [];
+                this.chart1Data = {columns, rows};
+
+                let columns2 = ["name", "value"];
+                let rows2 = val.orderPriceOverview && val.orderPriceOverview.list || [];
+                this.chart2Data = {columns: columns2, rows: rows2};
+
+                let columns3 = ["name", "value"];
+                let rows3 = val.settleOverview && val.settleOverview.list || [];
+                this.chart3Data = {columns: columns3, rows: rows3};
+            }
         },
     },
     computed: {
         chart3B() {
             return this.data && this.data.settleView;
-        },
-        chart1Data() {
-            let columns = ["name", "value"];
-            let rows = this.data && this.data.orderTypeOverview && this.data.orderTypeOverview.list || [];
-            return {columns, rows};
-        },
-        chart2Data() {
-            let columns = ["name", "value"];
-            let rows = this.data && this.data.orderPriceOverview && this.data.orderPriceOverview.list || [];
-            return {columns, rows};
-        },
-        chart3Data() {
-            let columns = ["name", "value"];
-            let rows = this.data && this.data.settleOverview && this.data.settleOverview.list || [];
-            return {columns, rows};
         }
     }
 }

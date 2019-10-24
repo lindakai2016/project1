@@ -58,7 +58,7 @@ export default {
             return {0: "新建账号", 1: "编辑账号"}[this.type] || "新建账号";
         },
         canSubmit() {
-            return this.name && this.phone && this.phone.validPhone();
+            return !!this.name && !!this.phone && this.phone.validPhone();
         },
     },
     watch: {

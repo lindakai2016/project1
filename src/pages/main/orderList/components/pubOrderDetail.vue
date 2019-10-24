@@ -1,6 +1,6 @@
 <template>
     <div class="pubOrderDetail">
-        <div class="orderDt" v-if="orderInfo">
+        <div class="orderDt" v-if="odItem">
             <div class="statusPrg" v-if="hasOdFlow">
                 <div class="spBg" :style="{width: odFlowBgW}">
                     <div class="spDone" :style="{width: odFlowW}"></div>
@@ -99,36 +99,26 @@ export default {
     name: "pubOrderDetail",
     data() {
         return {
-            orderInfo: null,
+            odItem: null,
             code: "",
         }
     },
     computed: {
         canCancel() {
-            let {orderStatus, cancelApply} = this.orderInfo || {};
+            let {orderStatus, cancelApply} = this.odItem || {};
             return [0, 10, 20].includes(orderStatus) && cancelApply;
         },
-        odItem() {
-            let odItem =  this.orderInfo || {};
-            odItem.isCt = (odItem.type == 3);
-            odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
-            odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
-            odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
-            !odItem.orderFlow && (odItem.orderFlow = []);
-            odItem.orderFlow.map((e, i) => e.idx = i);
-            return odItem;
-        },
         hasOdFlow() {
-            return this.odItem.orderFlow.length;
+            return this.odItem && this.odItem.orderFlow.length;
         },
         odFlowBgW() {
-            let n = this.odItem.orderFlow.length || 1;
+            let n = this.odItem && this.odItem.orderFlow.length || 1;
             return 100 * (n - 1) / n + "%";
         },
         odFlowW() {
-            let n = this.odItem.orderFlow.length;
+            let n = this.odItem && this.odItem.orderFlow.length;
             n < 2 && (n = 2);
-            let i = (this.odItem.orderFlow.filter(e => e.current)[0] || {}).idx;
+            let i = (this.odItem && this.odItem.orderFlow.filter(e => e.current)[0] || {}).idx;
             return i * 100 / (n - 1) + "%";
         },
     },
@@ -158,7 +148,14 @@ export default {
                     this.$message.warning(res.message || "请求失败");
                     return;
                 }
-                this.orderInfo = res.data || {};
+                let odItem =  res.data || {};
+                odItem.isCt = (odItem.type == 3);
+                odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
+                odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
+                odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
+                !odItem.orderFlow && (odItem.orderFlow = []);
+                odItem.orderFlow.map((e, i) => e.idx = i);
+                this.odItem =odItem;
             });
         },
         orderCancel: _.debounce(async function () {

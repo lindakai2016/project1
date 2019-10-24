@@ -78,13 +78,13 @@ export default {
             return this.cityItem.cityName;
         },
         showDrop1() {
-            return this.inFocus1 && this.cityList;
+            return this.inFocus1 && !!this.cityList;
         },
         showDrop2() {
-            return this.poiKey && this.inFocus2 && this.poiList;
+            return this.poiKey && this.inFocus2 && !!this.poiList;
         },
         showDropHis() {
-            return !this.poiKey && this.inFocus2 && this.hisPoiList;
+            return !this.poiKey && this.inFocus2 && !!this.hisPoiList;
         }
     },
     watch: {
@@ -126,9 +126,14 @@ export default {
         item: {
             immediate: true,
             handler(val) {
+                val = _.cloneDeep(val);
                 val && this.initPoiItem(val);
             }
         },
+    },
+    beforeDestroy() {
+        this.cityItem = null;
+        this.poiItem = null;
     },
     methods: {
         initCity() {
