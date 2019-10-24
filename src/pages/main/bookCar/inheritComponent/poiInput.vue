@@ -28,7 +28,7 @@
                 <div class="li empty" v-if="poiList.length <= 0">无搜索结果</div>
             </div>
             <div class="poiList drop" v-if="showDropHis">
-                <div class="li" v-for="(item, i) in hisPoiList" :key="i" @click="chooseHisAddr(item)">
+                <div class="li" v-for="(item, i) in srchHisPosList" :key="i" @click="chooseHisAddr(item)">
                     <i class="iconfont icon-didian posIc"></i>
                     <div class="poiInfo">
                         <div class="big">{{item.name}}</div>
@@ -36,7 +36,7 @@
                     </div>
                     <i class="iconfont icon-shanchu delIc link" @click.stop="delHisAddr(item)"></i>
                 </div>
-                <div class="li empty" v-if="hisPoiList.length <= 0">无历史地址</div>
+                <div class="li empty" v-if="srchHisPosList.length <= 0">无历史地址</div>
             </div>
             <div id="temp" style="display:none"></div>
         </div>
@@ -73,6 +73,10 @@ export default {
             let key = this.cityKey || "";
             return this.cityList && this.cityList.filter(e => e.cityName.includes(key)) || [];
         },
+        srchHisPosList() {
+            let cid = this.cityItem.cityId;
+            return this.hisPoiList && this.hisPoiList.filter(e => e.cityId == cid) || [];
+        },
         canInputPoi() {
             return this.cityItem.cityName;
         },
@@ -100,7 +104,6 @@ export default {
                 this.$emit("blur");
             }
         },
-       
         cityList: {
             immediate: true,
             handler(val) {
@@ -120,6 +123,7 @@ export default {
         cityCode: {
             immediate: true,
             handler(val) {
+                // 编辑订单
                 val && this.initCity();
             }
         },
@@ -197,7 +201,7 @@ export default {
                     pageSize: 12, 
                     pageIndex: 1, 
                     city: cityCode,
-                    cityLimit: true, 
+                    citylimit: true, 
                     autoFitView: true,
                     panel: 'temp'
                 });
@@ -243,9 +247,6 @@ export default {
             this.poiKey = item.name;
             this.poiList = null;
             this.$emit("change", item);
-            //
-            let cityItem = this.cityList && this.cityList.filter(e => e.cityId == item.cityId)[0];
-            cityItem && this.chooseCity(cityItem);
         },
         autoChooseCity() {
             if(this.cityKey && this.srchCityList.length) {

@@ -9,6 +9,7 @@ async function getCompanyInfo(companyCode) {
     }
     let company = res.data || {};
     localStorage.setItemObj("companyInfo", company);
+    document.title = company.companyName + "企业版";
 }
 
 let routeCount = 0;

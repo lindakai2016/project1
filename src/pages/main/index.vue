@@ -102,6 +102,7 @@ export default {
     min-height: 100vh;
     background: #F9F9FC;
     min-width: 1000px;
+    padding-bottom: 80px;
     .normalW {
         width: 80%;
         margin: 0 auto;

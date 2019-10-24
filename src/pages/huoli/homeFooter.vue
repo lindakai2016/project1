@@ -8,11 +8,11 @@
 .huoliHomeFooter {
     position: absolute;
     bottom: 0;
-    padding-bottom: 21px;
+    padding-bottom: 26px;
     width: 100%;
     text-align: center;
     .ftImg {
-        height: auto;
+        height: 16px;
     }
 }
 </style>

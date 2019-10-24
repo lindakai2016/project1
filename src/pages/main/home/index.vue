@@ -112,7 +112,7 @@ export default {
 
 <style lang="scss" scoped>
 .homePage {
-    padding-bottom: 80px;
+    padding-bottom: 20px;
     .sec1 {
         margin-top: 25px;
     }

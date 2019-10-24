@@ -1,6 +1,6 @@
 <template>
     <div class="huoliLoginFooter">
-        <img class="ftImg" src="@/static/images/login_img_copyright.svg" @dragstart.prevent/>
+        <img class="ftImg" src="@/static/images/login_img_copyright.png" @dragstart.prevent/>
     </div>
 </template>
 
@@ -8,11 +8,11 @@
 .huoliLoginFooter {
     position: absolute;
     bottom: 0;
-    padding-bottom: 31px;
+    padding-bottom: 26px;
     width: 100%;
     text-align: center;
     .ftImg {
-        height: auto;
+        height: 16px;
         background-blend-mode: color;
     }
 }

@@ -24,6 +24,10 @@ import "@/static/css/global.scss";
 import "@/static/css/custom.scss";
 import "@/static/css/reset.scss";
 
+// 设置title
+let company = localStorage.getItemObj("companyInfo");
+document.title = company.companyName + "企业版";
+
 new Vue({
     router,
     store,

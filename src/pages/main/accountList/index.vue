@@ -153,7 +153,7 @@ export default {
 
 <style lang="scss" scoped>
 .accountList {
-    padding: 27px 0 80px 0;
+    padding: 27px 0 0 0;
     .title {
         font-weight: 600;
         font-size: 16px;

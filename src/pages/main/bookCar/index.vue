@@ -141,6 +141,8 @@ export default {
                     return;
                 }
                 this.showSuccDlg = true;
+                this.$store.dispatch("main/getUserList");
+                this.$store.dispatch("main/getPoiList");
             }).catch(err => err);
         },
         updateOrder(params) {
@@ -152,6 +154,8 @@ export default {
                     return;
                 }
                 this.$message.success("修改成功");
+                this.$store.dispatch("main/getUserList");
+                this.$store.dispatch("main/getPoiList");
                 this.$router.push("/order");
             }).catch(err => err);
         },
@@ -199,7 +203,7 @@ export default {
 
 <style lang="scss" scoped>
 .bookCar {
-    padding: 25px 0 80px 0;
+    padding: 25px 0 0 0;
     .editHead {
         display: flex;
         align-items: center;

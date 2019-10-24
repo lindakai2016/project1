@@ -128,7 +128,8 @@ export default {
 
 <style lang="scss" scoped>
 .orderList {
-    padding: 27px 0 80px 0;
+    padding: 27px 0 0 0;
+    margin-bottom: -50px;
     .title {
         font-weight: 600;
         font-size: 16px;
