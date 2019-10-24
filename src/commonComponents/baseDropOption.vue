@@ -1,5 +1,5 @@
 <template>
-    <div class="dropItem" @click="clickItem">
+    <div class="dropItem">
         <slot></slot>
     </div>
 </template>
@@ -8,11 +8,6 @@
 
 export default {
     name: "baseDropOption",
-    methods: {
-        clickItem() {
-            this.$emit("click");
-        }
-    }
 }
 </script>
 

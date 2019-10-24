@@ -16,6 +16,10 @@ export default {
     created() {
         this.selectGr.options.push(this);
     },
+    beforeDestroy() {
+        let options = this.selectGr.options;
+        options.splice(options.indexOf(this), 1);
+    },
     methods: {
         clickItem() {
             this.selectGr.clickOption(this);

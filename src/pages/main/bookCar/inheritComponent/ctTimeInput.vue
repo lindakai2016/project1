@@ -8,8 +8,6 @@
             </div>
             <div class="drop" v-if="inFocus">
                 <div class="li" v-for="(e, i) in timeList" :key="i" @click="chooseTime(e)">{{e.label}}</div>
-                
-                
             </div>
         </div>
     </div>

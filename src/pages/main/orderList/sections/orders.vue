@@ -57,11 +57,11 @@
             </div>
             <div class="td col_cz">
                 <moreDrop class="moreDrop">
-                    <dropOption @click="detail(item)">详情</dropOption>
-                    <dropOption v-if="canEdit(item)" @click="edit(item)">编辑</dropOption>
+                    <dropOption @click.native="detail(item)">详情</dropOption>
+                    <dropOption v-if="canEdit(item)" @click.native="edit(item)">编辑</dropOption>
                     <dropOption class="gray" v-if="canCancel(item) && item.cancelApply">等待取消</dropOption>
-                    <dropOption v-if="canCancel(item) && !item.cancelApply" @click="cancel(item)">取消</dropOption>
-                    <dropOption v-if="canDel(item)" @click="del(item)">删除</dropOption>
+                    <dropOption v-if="canCancel(item) && !item.cancelApply" @click.native="cancel(item)">取消</dropOption>
+                    <dropOption v-if="canDel(item)" @click.native="del(item)">删除</dropOption>
                 </moreDrop>
             </div>
         </div>
