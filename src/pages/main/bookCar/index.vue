@@ -113,6 +113,7 @@ export default {
         this.setMapCity(ct);
     },
     beforeDestroy() {
+        this.amap.clearMap();
         this.amap.destroy();
         this.amap = null;
     },

@@ -25,6 +25,8 @@ import smsLogin from "./loginType/smsLogin";
 import passLogin from "./loginType/passLogin";
 import huoliLoginFooter from "@/pages/huoli/loginFooter";
 
+const defaultBg = require("../../static/images/login_bg.png");
+
 export default {
     name: "login",
     components: {
@@ -47,7 +49,7 @@ export default {
             return {0: "smsLogin", 1: "passLogin"}[this.loginType];
         },
         companyBg() {
-            return this.company.customLoginBg || require("../../static/images/login_bg.png");
+            return this.company.customLoginBg || defaultBg;
         },
     },
     methods: {

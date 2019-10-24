@@ -259,6 +259,8 @@ export default {
 
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
+            let eRes = await this.cityQuery(eLng, eLat);
+            let eAddr = `${eRes.province}${eRes.city}${eRes.district}${eRes.street}${eRes.streetNumber}`;
 
             this.createOrder({
                 city_id:            cityId,
@@ -270,6 +272,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 end_position:       ePos,
+                end_address:        eAddr,
                 type:               2,
                 remark:             remark,
 
@@ -295,6 +298,8 @@ export default {
             let orderId = this.odItem.orderId;
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
+            let eRes = await this.cityQuery(eLng, eLat);
+            let eAddr = `${eRes.province}${eRes.city}${eRes.district}${eRes.street}${eRes.streetNumber}`;
 
             this.updateOrder({
                 order_id:           orderId,
@@ -307,6 +312,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 end_position:       ePos,
+                end_address:        eAddr,
                 type:               2,
                 remark:             remark,
 

@@ -1,6 +1,6 @@
 <template>
     <div class="inputGr" :class="{focus: inFocus}">
-        <input class="input" :placeholder="placeholder" type="password" :value="value" @input="input" @focus="focus" @blur="blur" autocomplete="new-password">
+        <input class="input" :placeholder="placeholder" type="password" :value="value" @input="input($event)" @focus="focus" @blur="blur" autocomplete="new-password">
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
             this.inFocus = false;
             this.$emit("blur");
         },
-        input() {
+        input(event) {
             this.$emit("inputValue", event.target.value);
         }
     }

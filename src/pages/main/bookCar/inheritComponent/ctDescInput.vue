@@ -1,6 +1,6 @@
 <template>
     <div class="textAreaGr" :class="{focus: inFocus, err: err}" v-clickout="blur">
-        <textarea class="input" placeholder="请输入包车行程说明" :value="value" @input="input" @click="focus"></textarea>
+        <textarea class="input" placeholder="请输入包车行程说明" :value="value" @input="input($event)" @click="focus"></textarea>
         <p class="letterNum">{{curLetterNum}}/300</p>
     </div>
 </template>
@@ -28,7 +28,7 @@ export default {
         blur() {
             this.inFocus = false;
         },
-        input() {
+        input(event) {
             let value = event.target.value;
             let reg = /^[\s\S]{0,300}/;
             value = value && (value.match(reg) || [])[0];

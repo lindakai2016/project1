@@ -48,10 +48,10 @@ export default {
             return this.inFocus || !this.flyItem || !this.flyItem.flightNo;
         },
         showApInfo() {
-            return !this.inFocus && this.flyItem && this.flyItem.flightNo;
+            return !this.inFocus && !!this.flyItem && !!this.flyItem.flightNo;
         },
         showApUl() {
-            return this.inFocus && this.flyList;
+            return this.inFocus && !!this.flyList;
         },
         flyDateEx() {
             let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";

@@ -2,7 +2,7 @@
     <div class="userCarPersonSelect">
         <div class="selGr psSel" v-clickout="clickout">
             <div class="inputGr" :class="{focus: inFocus, err: err}">
-                <input class="input" type="text" @input="input" @click="focus" :value="value" placeholder="请输入手机号">
+                <input class="input" type="text" @input="input($event)" @click="focus" :value="value" placeholder="请输入手机号">
                 <i class="iconfont icon-home_icon_s sdi" @click="clickDropIcon"></i>
             </div>
             <div class="drop" v-if="showDrop">
@@ -51,7 +51,7 @@ export default {
         clickDropIcon() {
             this.inFocus = !this.inFocus;
         },
-        input() {
+        input(event) {
             this.$emit("inputValue",  event.target.value);
             this.inFocus = true;
         },

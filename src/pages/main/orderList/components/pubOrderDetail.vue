@@ -86,7 +86,7 @@
                     <span class="price" v-if="odItem.settleStatus == 1">{{odItem.settlePrice || "--"}}元</span>
                 </div>
             </div>
-            <button class="carBtn blue okBtn" @click="orderCancel">取消订单</button>
+            <button class="carBtn blue okBtn" @click="orderCancel" v-if="canCancel">取消订单</button>
         </div>
     </div>
 </template>
@@ -104,11 +104,15 @@ export default {
         }
     },
     computed: {
+        canCancel() {
+            let {orderStatus, cancelApply} = this.orderInfo || {};
+            return [0, 10, 20].includes(orderStatus) && cancelApply;
+        },
         odItem() {
             let odItem =  this.orderInfo || {};
             odItem.isCt = (odItem.type == 3);
             odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
-            odItem.setterTypeEx = {1: "线上结算", 2: "线下结算"}[odItem.settleType];
+            odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
             odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
             !odItem.orderFlow && (odItem.orderFlow = []);
             odItem.orderFlow.map((e, i) => e.idx = i);
@@ -157,7 +161,11 @@ export default {
                 this.orderInfo = res.data || {};
             });
         },
-        orderCancel: _.debounce(function () {
+        orderCancel: _.debounce(async function () {
+            let op = await this.$dialog.alert("确定取消该订单吗？");
+            if(op != "ok") {
+                return;
+            }
             let code = this.code;
             this.$api["pubOrderCancel"]({
                 code
@@ -167,7 +175,7 @@ export default {
                     return;
                 }
                 this.$message.success("订单取消成功");
-                this.$router.push("/order");
+                this.getOrderDetail();
             });
         }, 300)
     }

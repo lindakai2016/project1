@@ -58,10 +58,10 @@ export default {
             return this.cityItem.cityName;
         },
         showDrop1() {
-            return this.inFocus1 && this.cityList;
+            return this.inFocus1 && !!this.cityList;
         },
         showDrop2() {
-            return this.inFocus2 && this.depList;
+            return this.inFocus2 && !!this.depList;
         },
         placeholder() {
             return {0: "请选择机场", 1: "请选择火车站"}[this.type];

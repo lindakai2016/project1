@@ -102,7 +102,7 @@ export default {
             let odItem =  this.data || {};
             odItem.isCt = (odItem.type == 3);
             odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
-            odItem.setterTypeEx = {1: "线上结算", 2: "线下结算"}[odItem.settleType];
+            odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
             odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
             !odItem.orderFlow && (odItem.orderFlow = []);
             odItem.orderFlow.map((e, i) => e.idx = i);

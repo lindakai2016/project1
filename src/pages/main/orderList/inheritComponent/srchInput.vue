@@ -1,6 +1,6 @@
 <template>
     <div class="inputSrch">
-        <input class="input" type="text" :placeholder="placeholder" :value="value" @input="input">
+        <input class="input" type="text" :placeholder="placeholder" :value="value" @input="input($event)">
         <i class="iconfont icon-login_icon_del link delIc" @click="clear" v-show="showClear"></i>
         <i class="iconfont icon-icon_search link srchIc" @click="clickSearch"></i>
     </div>
@@ -24,7 +24,7 @@ export default {
         clickSearch() {
             this.$emit("search");
         },
-        input() {
+        input(event) {
             this.$emit("inputValue", event.target.value);
         },
         clear() {

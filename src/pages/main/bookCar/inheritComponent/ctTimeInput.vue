@@ -3,7 +3,7 @@
         <!--包车天数-->
         <div class="selGr" v-clickout="blur">
             <div class="inputGr" :class="{focus: inFocus, err: err}">
-                <input class="input" type="text" placeholder="请输入包车天数" @input="input" @click="focus" :value="value">
+                <input class="input" type="text" placeholder="请输入包车天数" @input="input($event)" @click="focus" :value="value">
                 <i class="iconfont icon-home_icon_s sdi" @click="clickIcon"></i>
             </div>
             <div class="drop" v-if="inFocus">
@@ -53,7 +53,7 @@ export default {
         focus() {
             this.inFocus = true;
         },
-        input() {
+        input(event) {
             let value = event.target.value;
             let reg = /^\d+(\.\d*)?/
             value = value && (value.match(reg) || [])[0];

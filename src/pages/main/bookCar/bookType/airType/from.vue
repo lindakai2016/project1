@@ -23,11 +23,11 @@
                 :editable="false"
             ></DatePicker>
         </p>
-        <p class="fi" v-show="byFly">
+        <p class="fi" v-if="byFly">
             <label class="lb needed">航班号</label>
             <flyInput class="rval v_airport" :err="flyItemErr" :item="flyItem" :date="qfDate" @change="flyChange" @lnglat="flyLnglat" @blur="flyItemBlur"></flyInput>
         </p>
-        <p class="fi" v-show="byDep">
+        <p class="fi" v-if="byDep">
             <label class="lb needed">航站楼</label>
             <depInput class="rval v_teminal" :err="depItemErr" :cityCode="sCtCode" :item="depItem" :type="0" @change="depChange" @changeCity="depCityChange" @blur="depItemBlur"></depInput>
         </p>
@@ -38,7 +38,7 @@
         <p class="fi">
             <label class="lb needed">用车时间</label>
             <DatePicker 
-                class="rval v_useDate ivu-datepick-h35" 
+                class="rval v_useDate ivu-datepick-h35 rvalDp" 
                 :class="{err: jcDateErr}"
                 :options="datePickerOption"
                 type="date"
@@ -183,13 +183,14 @@ export default {
                     let eLat = order.endLatitude;
                    
                     if(order.flyInfo) {
-                        this.by = 1;
                         let flyItem = JSON.parse(order.flyInfo) || {};
                         this.qfDate = flyItem.depPlanTime && new Date(flyItem.depPlanTime);
                         this.flyItem = flyItem;
+                        this.by = 1;
                         this.setDatePickerOption();
                     }else {
                         this.by = 0;
+                        this.datePickerOption = {};
                     }
 
                     this.depItem = {
@@ -234,12 +235,11 @@ export default {
             this.by = n;
             if(this.byDep) {
                 this.depItem = {};
-                this.datePickerOption = {};
             }
             if(this.byFly) {
                 this.flyItem = {};
-                this.setDatePickerOption();
             }
+            this.datePickerOption = {};
         },
         flyChange(flyItem) {
             this.flyItem = flyItem;
@@ -427,6 +427,8 @@ export default {
 
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
+            let eRes = await this.cityQuery(eLng, eLat);
+            let eAddr = `${eRes.province}${eRes.city}${eRes.district}${eRes.street}${eRes.streetNumber}`;
             
             this.createOrder({
                 city_id:            cityId,
@@ -439,6 +441,7 @@ export default {
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
+                end_address:        eAddr,
                 type:               2,
                 remark:             remark,
 
@@ -489,6 +492,8 @@ export default {
             let orderId = this.odItem.orderId;
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
+            let eRes = await this.cityQuery(eLng, eLat);
+            let eAddr = `${eRes.province}${eRes.city}${eRes.district}${eRes.street}${eRes.streetNumber}`;
 
             this.updateOrder({
                 order_id:           orderId,
@@ -502,6 +507,7 @@ export default {
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
+                end_address:        eAddr,
                 type:               2,
                 remark:             remark,
 

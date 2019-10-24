@@ -73,6 +73,16 @@ i.ivu-icon {
     }
 }
 
+.rvalDp {
+    .ivu-picker-panel-with-sidebar{
+        padding-left: 158px;
+        .ivu-picker-panel-sidebar {
+            width: 158px;
+            margin-left: -158px;
+        }
+    }
+}
+
 /* --iview switch-- */
 .ivu-switch {
     outline: none !important;

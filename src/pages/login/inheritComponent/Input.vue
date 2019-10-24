@@ -1,6 +1,6 @@
 <template>
     <div class="inputGr" :class="{focus: inFocus}">
-        <input class="input" :placeholder="placeholder" :type="type" :value="value" @input="input" @focus="focus" @blur="blur" autocomplete="off">
+        <input class="input" :placeholder="placeholder" :type="type" :value="value" @input="input($event)" @focus="focus" @blur="blur" autocomplete="off">
         <i class="iconfont icon-login_icon_del link" @click="clickClear" v-show="showClear"></i>
     </div>
 </template>
@@ -32,7 +32,7 @@ export default {
         clickClear() {
             this.$emit("inputValue", "");
         },
-        input() {
+        input(event) {
             this.$emit("inputValue", event.target.value);
         },
         focus() {

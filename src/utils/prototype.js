@@ -23,8 +23,10 @@ String.prototype.validRideNum = function() {
 
 String.prototype.fmtPhone = function (c = " ") {
     // 158 1026 9653
-    let reg = new RegExp("(?<=^\\d{3}(\\d{4})?)\\B", "g");
-	return this.replace(reg, c);
+    // let reg = new RegExp("(?<=^\\d{3}(\\d{4})?)\\B", "g");  // firfox不支持
+    // return this.replace(reg, c);
+    c;
+    return this;
 }
 
 window.location.parse = function() {
