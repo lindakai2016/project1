@@ -49,7 +49,6 @@ import _ from "lodash";
 export default {
     name: "poiInput",
     props: ["cityId", "err", "cityCode", "item"],
-    inject: ["cityQuery"],
     data() {
         return {
             inFocus1: false,
@@ -101,6 +100,7 @@ export default {
                 this.$emit("blur");
             }
         },
+       
         cityList: {
             immediate: true,
             handler(val) {

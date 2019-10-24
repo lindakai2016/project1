@@ -115,6 +115,7 @@ export default {
     beforeDestroy() {
         this.cityItem = null;
         this.depItem = null;
+        this.depList = null;
     },
     methods: {
         initCity() {
