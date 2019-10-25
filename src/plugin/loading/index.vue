@@ -20,8 +20,10 @@ export default {
     methods: {
         open() {
             this.count ++;
+            console.log("open")
         },
         close() {
+            console.log("close");
             this.count --;
         }
     }

@@ -153,6 +153,7 @@ export default {
         },
         jcDate() {
             this.checkJcDate();
+            !this.jcTime && (this.jcTime = "08:00");
         },
         jcTime() {
             this.checkJcTime();

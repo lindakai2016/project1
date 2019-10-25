@@ -12,7 +12,7 @@
     width: 100%;
     text-align: center;
     .ftImg {
-        height: 16px;
+        height: 14px;
     }
 }
 </style>

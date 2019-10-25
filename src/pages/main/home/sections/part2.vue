@@ -28,6 +28,7 @@
 
 <script>
 import moment from "moment";
+import _ from "lodash";
 
 export default {
     name: "homepart2",
@@ -53,7 +54,7 @@ export default {
                 gray:   orderStatus == 30,
             }
         },
-        getOrderList() {
+        getOrderList: _.debounce(function() {
             this.$api["orderList"]({
                 page_index: 1,
                 page_size:  10,
@@ -72,7 +73,7 @@ export default {
                 });
                 this.orderList = orderList;
             }).catch(err => err);
-        },
+        }, 300),
         toOrderList() {
             this.$router.push("/order");
         }

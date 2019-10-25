@@ -153,6 +153,7 @@ export default {
         },
         jcDate() {
             this.checkJcDate();
+            !this.jcTime && (this.jcTime = "08:00");
         },
         jcTime() {
             this.checkJcTime();
@@ -259,6 +260,7 @@ export default {
             let sLat = this.depItem.latitude;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let eCityId = this.poiItem.cityId;
 
             let res = await this.cityQuery(sLng, sLat);
             let sAddr = `${res.province}${res.city}${res.district}${res.street}${res.streetNumber}`;
@@ -277,6 +279,7 @@ export default {
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
                 end_address:        eAddr,
+                end_city_id:        eCityId,
                 type:               2,
                 remark:             remark,
 
@@ -299,6 +302,7 @@ export default {
             let sLat = this.depItem.latitude;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let eCityId = this.poiItem.cityId;
 
             let orderId = this.odItem.orderId;
             let res = await this.cityQuery(sLng, sLat);
@@ -319,6 +323,7 @@ export default {
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
                 end_address:        eAddr,
+                end_city_id:        eCityId,
                 type:               2,
                 remark:             remark,
 

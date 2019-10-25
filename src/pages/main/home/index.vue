@@ -81,9 +81,6 @@ export default {
         this.getAccountOverview();
     },
     methods: {
-        query() {
-            this.getAccountOverview();
-        },
         //账户统计信息
         getAccountOverview: _.debounce(function() {
             let [s, d] = this.date || [];

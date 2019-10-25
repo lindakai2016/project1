@@ -215,6 +215,7 @@ export default {
         },
         jcDate() {
             this.checkJcDate();
+            !this.jcTime && (this.jcTime = "08:00");
         },
         jcTime() {
             this.checkJcTime();
@@ -244,6 +245,7 @@ export default {
         flyChange(flyItem) {
             this.flyItem = flyItem;
             this.cityId = flyItem.arrCityId;
+            this.setMapCity(flyItem.arrCityName);
             //
             this.jcDate = flyItem.arrPlanTime && moment(flyItem.arrPlanTime).add(15, "m").toDate();
             this.jcTime = this.jcDate;
@@ -422,6 +424,7 @@ export default {
             let ePos = this.poiItem.name;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let eCityId = this.poiItem.cityId;
             let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
             svTime += this.jcTime && (" " + this.jcTime + ":00");
 
@@ -442,6 +445,7 @@ export default {
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
                 end_address:        eAddr,
+                end_city_id:        eCityId,
                 type:               2,
                 remark:             remark,
 
@@ -486,6 +490,7 @@ export default {
             let ePos = this.poiItem.name;
             let eLng = this.poiItem.location && this.poiItem.location.lng;
             let eLat = this.poiItem.location && this.poiItem.location.lat;
+            let eCityId = this.poiItem.cityId;
             let svTime = this.jcDate && moment(this.jcDate).format("YYYY-MM-DD");
             svTime += this.jcTime && (" " + this.jcTime + ":00");
 
@@ -508,6 +513,7 @@ export default {
                 arr_teml_code:      sTerm,
                 end_position:       ePos,
                 end_address:        eAddr,
+                end_city_id:        eCityId,
                 type:               2,
                 remark:             remark,
 
