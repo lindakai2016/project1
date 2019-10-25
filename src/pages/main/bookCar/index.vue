@@ -120,6 +120,7 @@ export default {
         this.amap.clearMap();
         this.amap.destroy();
         this.amap = null;
+        document.querySelector("#mapDiv").remove();
     },
     methods: {
         editBack() {

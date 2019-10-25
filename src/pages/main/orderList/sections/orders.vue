@@ -172,7 +172,7 @@ export default {
         },
         // 取消
         async cancel({orderId, orderStatus}) {
-            let op = await this.$dialog.alert("确定取消订单？");
+            let op = await this.$dialog.alert(orderStatus == 0 ? "确定取消订单？" : "现在取消需由车队确认，确认后将短信通知您，确定取消？");
             if(op != "ok") {
                 return;
             }

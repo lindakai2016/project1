@@ -399,24 +399,24 @@ export default {
         createOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, sDepCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
                 sPos = this.flyItem.arrName;
                 sTerm = this.flyItem.arrTerm;
+                sDepCode = this.flyItem.arrCode;
 
                 flyNo = this.flyItem.flightNo;
                 flyInfo = JSON.stringify(this.flyItem);
                 flyDate = this.qfDate && moment(this.qfDate).format("YYYY-MM-DD HH:mm:ss");
-                depCode = this.flyItem.depCode;
-                arrCode = this.flyItem.arrCode;
-
+                
                 sLng = this.flyItem.longitude;
                 sLat = this.flyItem.latitude;
             }else if(this.byDep) {
                 cityId = this.depItem.cityId;
                 sPos = this.depItem.depotName;
                 sTerm = this.depItem.depotTermCode;
+                sDepCode = this.depItem.depotCode;
 
                 sLng = this.depItem.longitude;
                 sLat = this.depItem.latitude;
@@ -443,6 +443,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
+                arr_code:           sDepCode,
                 end_position:       ePos,
                 end_address:        eAddr,
                 end_city_id:        eCityId,
@@ -452,8 +453,6 @@ export default {
                 fly_no:             flyNo,
                 fly_info:           flyInfo,
                 fly_date:           flyDate,
-                dep_code:           depCode,
-                arr_code:           arrCode,
 
                 start_longitude:    sLng,
                 start_latitude:     sLat,
@@ -465,17 +464,16 @@ export default {
         updateOrderX: _.debounce(async function() {
             let {userPhone, userName, rideNum, remark} = this;
 
-            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, depCode, arrCode, sLng, sLat;
+            let cityId, sPos, sTerm, flyNo, flyInfo, flyDate, sDepCode, sLng, sLat;
             if(this.byFly) {
                 cityId = this.flyItem.arrCityId;
                 sPos = this.flyItem.arrName;
                 sTerm = this.flyItem.arrTerm;
+                sDepCode = this.flyItem.arrCode;
 
                 flyNo = this.flyItem.flightNo;
                 flyInfo = JSON.stringify(this.flyItem);
                 flyDate = this.qfDate && moment(this.qfDate).format("YYYY-MM-DD HH:mm:ss");
-                depCode = this.flyItem.depCode;
-                arrCode = this.flyItem.arrCode;
 
                 sLng = this.flyItem.longitude;
                 sLat = this.flyItem.latitude;
@@ -483,6 +481,7 @@ export default {
                 cityId = this.depItem.cityId;
                 sPos = this.depItem.depotName;
                 sTerm = this.depItem.depotTermCode;
+                sDepCode = this.depItem.depotCode;
 
                 sLng = this.depItem.longitude;
                 sLat = this.depItem.latitude;
@@ -511,6 +510,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
+                arr_code:           sDepCode,
                 end_position:       ePos,
                 end_address:        eAddr,
                 end_city_id:        eCityId,
@@ -520,8 +520,6 @@ export default {
                 fly_no:             flyNo,
                 fly_info:           flyInfo,
                 fly_date:           flyDate,
-                dep_code:           depCode,
-                arr_code:           arrCode,
 
                 start_longitude:    sLng,
                 start_latitude:     sLat,

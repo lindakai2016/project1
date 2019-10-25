@@ -254,6 +254,7 @@ export default {
             svTime += this.jcTime && (" " + this.jcTime + ":00");
             let sPos = this.depItem.depotName;
             let sTerm = this.depItem.depotTermCode;
+            let sDepCode = this.depItem.depotCode;
             let ePos = this.poiItem.name;
             
             let sLng = this.depItem.longitude;
@@ -277,6 +278,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
+                arr_code:           sDepCode,
                 end_position:       ePos,
                 end_address:        eAddr,
                 end_city_id:        eCityId,
@@ -296,6 +298,7 @@ export default {
             svTime += this.jcTime && (" " + this.jcTime + ":00");
             let sPos = this.depItem.depotName;
             let sTerm = this.depItem.depotTermCode;
+            let sDepCode = this.depItem.depotCode;
             let ePos = this.poiItem.name;
 
             let sLng = this.depItem.longitude;
@@ -321,6 +324,7 @@ export default {
                 start_position:     sPos,
                 start_address:      sAddr,
                 arr_teml_code:      sTerm,
+                arr_code:           sDepCode,
                 end_position:       ePos,
                 end_address:        eAddr,
                 end_city_id:        eCityId,

@@ -255,6 +255,7 @@ export default {
             let sPos = this.poiItem.name;
             let ePos = this.depItem.depotName;
             let eTerm = this.depItem.depotTermCode;
+            let eDepCode = this.depItem.depotCode;
 
             let sLng = this.poiItem.location && this.poiItem.location.lng;
             let sLat = this.poiItem.location && this.poiItem.location.lat;
@@ -280,6 +281,7 @@ export default {
                 end_address:        eAddr,
                 end_city_id:        eCityId,
                 dep_teml_code:      eTerm,
+                dep_code:           eDepCode,
                 type:               2,
                 remark:             remark,
 
@@ -298,6 +300,7 @@ export default {
             let sPos = this.poiItem.name;
             let ePos = this.depItem.depotName;
             let eTerm = this.depItem.depotTermCode;
+            let eDepCode = this.depItem.depotCode;
 
             let sLng = this.poiItem.location && this.poiItem.location.lng;
             let sLat = this.poiItem.location && this.poiItem.location.lat;
@@ -325,6 +328,7 @@ export default {
                 end_address:        eAddr,
                 end_city_id:        eCityId,
                 dep_teml_code:      eTerm,
+                dep_code:           eDepCode,
                 type:               2,
                 remark:             remark,
 
