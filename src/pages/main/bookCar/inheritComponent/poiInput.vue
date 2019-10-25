@@ -138,6 +138,7 @@ export default {
     beforeDestroy() {
         this.cityItem = null;
         this.poiItem = null;
+        this.poiList = null;
     },
     methods: {
         initCity() {
