@@ -60,7 +60,7 @@ function dealResponse(config, response) {
     config.mask && vue.$mask.close();
 
     let res = response && response.data || {};
-    if(["100406", "100300", "100403"].includes(res.code)) {
+    if(["100406", "100300", "100403", "101402"].includes(res.code)) {
         vue.$message.warning(res.message || "登录已失效，请重新登录");
         $router.push("/login");
         throw 0;

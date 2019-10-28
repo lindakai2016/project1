@@ -1,6 +1,6 @@
 const publicPath = {
     production: '/scar/',
-    development: '/scar/'
+    development: '/'
 };
 module.exports = {
     lintOnSave: true,

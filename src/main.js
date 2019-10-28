@@ -18,6 +18,9 @@ Vue.component('DatePicker', DatePicker);
 Vue.component('TimePicker', TimePicker);
 Vue.component('iSwitch', Switch);
 
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard);
+
 Vue.config.productionTip = false;
 
 import "@/static/css/global.scss";

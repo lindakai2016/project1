@@ -7,21 +7,21 @@ import bookCar from "./bookCar";
 import orderListRV from "./orderList/routerView";
 
 import pubOrderDetail from "./orderList/components/pubOrderDetail";
+import pubOrderDetailH5 from "./orderList/components/pubOrderDetailH5";
 
 export default [
     {
         path: '/home',
         component: main,
+        meta: { auth: true },
         children: [
             {
                 path: "",
                 component: home,
-                meta: { auth: true },
             },
             {
                 path: "/order",
                 component: orderListRV,
-                meta: { auth: true },
                 children: [
                     {
                         path: "",
@@ -38,17 +38,19 @@ export default [
             {
                 path: "/account",
                 component: accountList,
-                meta: { auth: true },
             },
             {
                 path: "/book",
                 component: bookCar,
-                meta: { auth: true },
             },
-            {
-                path: "/pubOrder",
-                component: pubOrderDetail,
-            }
         ],
+    },
+    {
+        path: "/pubOrder",
+        component: pubOrderDetail,
+    },
+    {
+        path: "/pubOrderH5",
+        component: pubOrderDetailH5,
     },
 ]

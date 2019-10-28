@@ -1,5 +1,5 @@
 <template>
-    <div class="carCharts">
+    <div class="carCharts" v-if="part5B">
         <h3 class="title">员工用车及消费情况</h3>
         <div class="th row">
             <div class="td vmid">员工</div>
@@ -55,7 +55,12 @@ export default {
                 this.personList = list;
             }
         }
-    }
+    },
+    computed: {
+        part5B() {
+            return this.data && this.data.orderView;
+        }
+    },
 }
 </script>
 

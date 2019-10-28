@@ -77,6 +77,10 @@
                 <label class="lb">下单人</label>
                 <span class="val">{{odItem.creatorName || "--"}}</span>
             </div>
+             <div class="valgr">
+                <label class="lb">订单金额</label>
+                <span class="price">{{odItem.settlePrice || "--"}}元</span>
+            </div>
             <div class="valgr">
                 <label class="lb">结算方式</label>
                 <span class="val">{{odItem.setterTypeEx || "--"}}</span>
@@ -84,7 +88,6 @@
             <div class="valgr">
                 <label class="lb">结算状态</label>
                 <span class="val">{{odItem.settleStatusEx || "--"}}</span>
-                <span class="price" v-if="odItem.settleStatus == 1">{{odItem.settlePrice || "--"}}元</span>
             </div>
         </div>
         <button class="carBtn blue okBtn" @click="exit">我知道了</button>

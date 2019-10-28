@@ -1,0 +1,282 @@
+.orderDt {
+    background: #F9F9FC;
+    min-height: 100vh;
+    color: #000;
+    padding-bottom: 80px;
+    .head {
+        font-size: 20px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #0A0A0A;
+        background: #fff;
+        position: relative;
+        .leftIc {
+            position: absolute;
+            left: 20px;
+            width: 30px;
+            font-size: 14px;
+        }
+        .rightIc {
+            position: absolute;
+            right: 10px;
+            font-size: 14px;
+        }
+    }
+    .status {
+        height: 60px;
+        line-height: 60px;
+        color: #0A0A0A;
+        font-size: 20px;
+        border-top: 1px solid #f9f9fc;
+        background: #fff;
+        padding: 0 30px;
+    }
+    .infoSec {
+        background: #fff;
+        margin: 12px 16px;
+        border-radius: 3px;
+        padding: 0 15px;
+    }
+     /* --司机信息-- */
+     .info_sj {
+        box-shadow: 0px 7px 18px -1px rgba(220,227,245,0.5);
+        margin-top: 12px;
+        padding-bottom: 15px;
+        background: #fff;
+        .h3 {
+            margin-bottom: 16px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            position: relative;
+            padding-left: 12px;
+            border-bottom: 1px dashed #dcdcdc;
+            &::before {
+                content: "";
+                position: absolute;
+                left: 2px;
+                width: 3px;
+                height: 18px;
+                background: #4780F7;
+                border-radius: 2px;
+                top: 16px;
+            }
+        }
+        .iconfont {
+            color: #C9C9C9;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        .l1 {
+            margin-top: 13px;
+            .name {
+                font-size: 14px;
+                color: #000;
+            }
+            .phone {
+                color: #4780F7;
+                font-size: 13px;
+                margin-left: 8px;
+                .telIc {
+                    color: #4780F7;
+                    font-size: 14px;
+                    margin-left: 4px;
+                }
+            }
+        }
+        .l2 {
+            margin-top: 13px;
+            display: flex;
+            align-items: center;
+            height: 20px;
+            font-size: 14px;
+            color: #000;
+            font-weight: 400;
+            .carName {
+                margin-right: 3px;
+            }
+            .carNum {
+                position: relative;
+                display: inline-block;
+                font-size: 12px;
+                color: #fff;
+                background: #7691C9;
+                transform: scale(0.8);
+                padding: 2px 8px;
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: -2px;
+                    right: -2px;
+                    top: -2px;
+                    bottom: -2px;
+                    border: 1px solid #7691C9;
+                    border-radius: 1px;
+                }
+            }
+            .dot {
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                background: #d8d8d8;
+                border-radius: 100%;
+            }
+            .carColor {
+                margin: 0 6px;
+            }
+            .carSeat {
+                margin: 0 6px;
+            }
+        }
+    }
+    .info_xc {
+        padding-bottom: 15px;
+        .l1 {
+            border-bottom: 1px dashed #dcdcdc;
+            height: 50px;
+            padding: 0 2px;
+            display: flex;
+            align-items: center;
+            .city {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            .odType {
+                height: 20px;
+                line-height: 18px;
+                border: 1px solid #4780F7;
+                border-radius: 12px;
+                color: #4780F7;
+                padding: 0 12px;
+                margin-left: 10px;
+                display: inline-block;
+                font-size: 12px;
+            }
+            .code {
+                font-size: 16px;
+                font-weight: 600;
+                flex-grow: 1;
+                text-align: right;
+            }
+
+        }
+        .line {
+            margin: 10px 0;
+            padding: 0 2px;
+            font-size: 14px;
+            .iconfont {
+                color: #C9C9C9;
+                margin-right: 6px;
+                font-size: 14px;
+            }
+            &.dash {
+                position: relative;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    border-left: 1px dashed #c9c9c9;
+                    height: 22px;
+                    top: -16px;
+                    left: 8px;
+                }
+            }
+            &.posIc {
+                position: relative;
+                line-height: 20px;
+                padding-left: 22px;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 9px;
+                    height: 9px;
+                    border: 2px solid rgba(0, 0, 0, 0.3);
+                    border-radius: 100%;
+                    left: 4px;
+                    top: 6px;
+                }
+            }
+            &.contact {
+                .userName {
+                    margin: 0 6px;
+                }
+                .userPhone {
+                    color: #4780F7;
+                    .telIc {
+                        color: #4780F7;
+                        margin-left: 4px;
+                    }
+                }
+            }
+        }
+        .remark {
+            background: #FBFBFB;
+            border-radius: 3px;
+            padding: 8px;
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+        }
+    }
+    .info_ck {
+        padding-bottom: 1px;
+        .ckTitle {
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            position: relative;
+            padding-left: 12px;
+            border-bottom: 1px dashed #dcdcdc;
+            &::before {
+                content: "";
+                position: absolute;
+                left: 2px;
+                width: 3px;
+                height: 18px;
+                background: #4780F7;
+                border-radius: 2px;
+                top: 16px;
+            }
+        }
+        .line {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin: 14px 0;
+            line-height: 20px;
+            .lb {
+                padding-left: 2px;
+                color: rgba(0, 0, 0, 0.5);
+            }
+            .val {
+                flex-grow: 1;
+                text-align: right;
+                .phone {
+                    color: #4780F7;
+                    margin-left: 6px;
+                }
+            }
+            .iconfont {
+                width: 24px;
+                color: #4780F7;
+                text-align: right;
+            }
+        }
+    }
+    .op {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        padding: 10px 15px;
+        border-top: 1px solid #dcdcdc;
+        .okBtn {
+            height: 50px;
+            line-height: 50px;
+            display: block;
+            width: 100%;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+    }
+}

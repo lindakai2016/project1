@@ -77,13 +77,16 @@
                     <span class="val">{{odItem.creatorName || "--"}}</span>
                 </div>
                 <div class="valgr">
+                    <label class="lb">订单金额</label>
+                    <span class="price">{{odItem.settlePrice || "--"}}元</span>
+                </div>
+                <div class="valgr">
                     <label class="lb">结算方式</label>
                     <span class="val">{{odItem.setterTypeEx || "--"}}</span>
                 </div>
                 <div class="valgr">
                     <label class="lb">结算状态</label>
                     <span class="val">{{odItem.settleStatusEx || "--"}}</span>
-                    <span class="price" v-if="odItem.settleStatus == 1">{{odItem.settlePrice || "--"}}元</span>
                 </div>
             </div>
             <button class="carBtn blue okBtn" @click="orderCancel" v-if="canCancel">取消订单</button>
@@ -121,6 +124,15 @@ export default {
             let i = (this.odItem && this.odItem.orderFlow.filter(e => e.current)[0] || {}).idx;
             return i * 100 / (n - 1) + "%";
         },
+    },
+    beforeRouteEnter (to, from, next) {
+        let cW = document.body.clientWidth;
+        if(cW <= 800) {
+            next({path: "/pubOrderH5", query: {...to.query}});
+            return;
+        }
+        document.title = "订单详情";
+        next();
     },
     mounted() {
         let code = this.$route.query.code;
@@ -183,5 +195,8 @@ export default {
 @import "../scss/pubOrderDetail.scss";
 .pubOrderDetail {
     padding-bottom: 80px;
+    min-height: 100vh;
+    background: #F9F9FC;
+    padding-top: 50px;
 }
 </style>
