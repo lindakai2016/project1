@@ -7,10 +7,6 @@ import "@/directives";
 import '@/utils/prototype';
 import "@/api";
 
-// v-charts图表
-import VCharts from 'v-charts';
-Vue.use(VCharts);
-
 // i-view组件库
 import 'iview/dist/styles/iview.css';
 import { DatePicker, TimePicker, Switch } from 'iview';

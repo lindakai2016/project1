@@ -3,15 +3,15 @@
         <div class="pieRow">
             <div class="pieCard">
                 <h3 class="title">订单类型分布</h3>
-                <ve-ring :data="chart1Data"  :settings="settings1" :tooltip="tooltip1" :extend="extend" height="220px" :judge-width="true"></ve-ring>
+                <div id="p6Chart1" style="height: 220px"></div>
             </div>
             <div class="pieCard">
                 <h3 class="title">订单费用分布</h3>
-                <ve-ring :data="chart2Data"  :settings="settings2" :tooltip="tooltip2" :extend="extend" height="220px" :judge-width="true"></ve-ring>
+                <div id="p6Chart2" style="height: 220px"></div>
             </div>
             <div class="pieCard" v-show="chart3B">
                 <h3 class="title">结算情况</h3>
-                <ve-ring :data="chart3Data"  :settings="settings3" :tooltip="tooltip1" :extend="extend" height="220px" :judge-width="true"></ve-ring>
+                <div id="p6Chart3" style="height: 220px"></div>
             </div>
         </div>
     </div>
@@ -20,124 +20,86 @@
 <script>
 import _ from "lodash";
 
+let options = {
+    series: [{
+        type: 'pie',
+        center: ['40%', '50%'],
+        radius: [65, 90],
+        hoverOffset: 5,
+        avoidLabelOverlap: false,
+        label: { 
+            normal: {
+                formatter: "",
+                position: "center",
+                rich: {
+                    a: {
+                        fontSize: 20,
+                        color: "#000",
+                        lineHeight: 30,
+                    },
+                    b: {
+                        fontSize: 14,
+                        color: "#888",
+                    }
+                },
+            }
+        },
+        itemStyle: {
+            borderWidth: 3,
+            borderColor: '#fff',
+        },
+    }],
+    color: ["#F4D458", "#E16C7D", "#72C87C", "#67C8CA", "#589EF8", "#5253C8"],
+    legend: {
+        icon: "roundRect",
+        orient: "vertical",
+        right: 0,
+        y: "center",
+        data: [],
+        padding: 0,
+    },
+    tooltip: {
+        padding: 0,
+    }
+};
+
 export default {
     name: "homepart6",
     props: ["data"],
     data() {
         return {
-            extend: {
-                series: {
-                    center: ['40%', '50%'],
-                    hoverOffset: 5,
-                },
-                color: ["#F4D458", "#E16C7D", "#72C87C", "#67C8CA", "#589EF8", "#5253C8"],
-                legend: {
-                    icon: "roundRect",
-                    orient: "vertical",
-                    right: 0,
-                    y: "center",
-                },
+            chart1: null,
+            chart2: null,
+            chart3: null,
+            chartResize: () => {
+                this.chart1.resize();
+                this.chart2.resize();
+                this.chart3.resize();
             },
-            settings1: {
-                radius: [65, 90],
-                label: {
-                    formatter: ['{a|0}', '{b|总订单}'].join('\n'),
-                    position: "center",
-                    rich: {
-                        a: {
-                            fontSize: 20,
-                            color: "#000",
-                            lineHeight: 30,
-                        },
-                        b: {
-                            fontSize: 14,
-                            color: "#888",
-                        }
-                    }
-                },
-                itemStyle: {
-                    borderWidth: 3,
-                    borderColor: '#fff'
-                },
+            tooltipFm1: params => {
+                return `<div class="tooltip">
+                            <div class="tlRow r1">
+                                <label class="lb">${params.name}</label>
+                                <span class="val">${~~params.value}单</span>
+                            </div> 
+                            <div class="tlRow r2">
+                                <label class="lb">占比</label>
+                                <span class="val">${params.percent}%</span>
+                            </div>
+                        </div>`;
             },
-            settings2: {
-                radius: [65, 90],
-                label: {
-                    formatter: ['{a|0}', '{b|总金额}'].join('\n'),
-                    position: "center",
-                    rich: {
-                        a: {
-                            fontSize: 20,
-                            color: "#000",
-                            lineHeight: 30,
-                        },
-                        b: {
-                            fontSize: 14,
-                            color: "#888",
-                        }
-                    }
-                },
-                itemStyle: {
-                    borderWidth: 3,
-                    borderColor: '#fff'
-                }
+            tooltipFm2: params => {
+                return `<div class="tooltip">
+                            <div class="tlRow r1">
+                                <label class="lb">${params.name}</label>
+                                <span class="val">${~~params.value}元</span>
+                            </div> 
+                            <div class="tlRow r2">
+                                <label class="lb">占比</label>
+                                <span class="val">${params.percent}%</span>
+                            </div>
+                        </div>`;
             },
-            settings3: {
-                radius: [65, 90],
-                label: {
-                    formatter: ['{a|0}', '{b|总订单}'].join('\n'),
-                    position: "center",
-                    rich: {
-                        a: {
-                            fontSize: 20,
-                            color: "#000",
-                            lineHeight: 30,
-                        },
-                        b: {
-                            fontSize: 14,
-                            color: "#888",
-                        }
-                    }
-                },
-                itemStyle: {
-                    borderWidth: 3,
-                    borderColor: '#fff'
-                }
-            },
-            tooltip1: {
-                padding: 0,
-                formatter: params => {
-                    return `<div class="tooltip">
-                                <div class="tlRow r1">
-                                    <label class="lb">${params.name}</label>
-                                    <span class="val">${~~params.value}单</span>
-                                </div> 
-                                <div class="tlRow r2">
-                                    <label class="lb">占比</label>
-                                    <span class="val">${params.percent}%</span>
-                                </div>
-                            </div>`;
-                },
-            }, 
-            tooltip2: {
-                padding: 0,
-                formatter: params => {
-                    return `<div class="tooltip">
-                                <div class="tlRow r1">
-                                    <label class="lb">${params.name}</label>
-                                    <span class="val">${~~params.value}元</span>
-                                </div> 
-                                <div class="tlRow r2">
-                                    <label class="lb">占比</label>
-                                    <span class="val">${params.percent}%</span>
-                                </div>
-                            </div>`;
-                },
-            },
-
-            chart1Data: {},
-            chart2Data: {},
-            chart3Data: {},
         }
     },
     watch: {
@@ -148,24 +110,53 @@ export default {
                 let chart1 = val.orderTypeOverview || {};
                 let chart2 = val.orderPriceOverview || {};
                 let chart3 = val.settleOverview || {};
+
                 let fmt1 = [`{a|${chart1.total || 0}}`, '{b|总订单}'].join('\n');
                 let fmt2 = [`{a|${chart2.total || 0}}`, '{b|总金额}'].join('\n');
                 let fmt3 = [`{a|${chart3.total || 0}}`, '{b|总订单}'].join('\n');
-                this.$set(this.settings1.label, "formatter", fmt1);
-                this.$set(this.settings2.label, "formatter", fmt2);
-                this.$set(this.settings3.label, "formatter", fmt3);
 
-                let columns = ["name", "value"];
-                let rows = val.orderTypeOverview && val.orderTypeOverview.list || [];
-                this.chart1Data = {columns, rows};
+                let chart1Data = chart1.list || [];
+                let chart2Data = chart2.list || [];
+                let chart3Data = chart3.list || [];
 
-                let columns2 = ["name", "value"];
-                let rows2 = val.orderPriceOverview && val.orderPriceOverview.list || [];
-                this.chart2Data = {columns: columns2, rows: rows2};
+                let legend1 = chart1Data.map(e => e.name);
+                let legend2 = chart2Data.map(e => e.name);
+                let legend3 = chart3Data.map(e => e.name);
+               
+                this.chart1 && this.chart1.setOption({
+                    series: [{
+                        label: {normal: {formatter: fmt1}},
+                        data: chart1Data,
+                    }],
+                    legend: {
+                        data: legend1
+                    }
+                });
+                
+                this.chart2 && this.chart2.setOption({
+                    series: [{
+                        label: {normal: {formatter: fmt2}},
+                        data: chart2Data,
+                    }],
+                    legend: {
+                        data: legend2
+                    }
+                });
+                this.chart3 && this.chart3.setOption({
+                    series: [{
+                        label: {normal: {formatter: fmt3}},
+                        data: chart3Data,
+                    }],
+                    legend: {
+                        data: legend3
+                    }
+                });   
 
-                let columns3 = ["name", "value"];
-                let rows3 = val.settleOverview && val.settleOverview.list || [];
-                this.chart3Data = {columns: columns3, rows: rows3};
+                this.$nextTick(() => {
+                    this.chart1 && this.chart1.resize();
+                    this.chart2 && this.chart2.resize();
+                    this.chart3 && this.chart3.resize();
+                })
             }
         },
     },
@@ -173,6 +164,39 @@ export default {
         chart3B() {
             return this.data && this.data.settleView;
         }
+    },
+    mounted() {
+        this.chart1 = echarts.init(document.querySelector("#p6Chart1"));
+        this.chart1.setOption(options);
+        this.chart1.setOption({
+            tooltip: {formatter: this.tooltipFm1}
+        });
+        
+        this.chart2 = echarts.init(document.querySelector("#p6Chart2"));
+        this.chart2.setOption(options);
+        this.chart2.setOption({
+            tooltip: {formatter: this.tooltipFm2}
+        });
+       
+        this.chart3 = echarts.init(document.querySelector("#p6Chart3"));
+        this.chart3.setOption(options);
+        this.chart3.setOption({
+            tooltip: {formatter: this.tooltipFm1}
+        });
+       
+        window.addEventListener("resize", this.chartResize);
+    },
+    beforeDestroy() {
+        this.chart1.dispose();
+        this.chart1 = null;
+
+        this.chart2.dispose();
+        this.chart2 = null;
+
+        this.chart3.dispose();
+        this.chart3 = null;
+
+        window.removeEventListener("resize", this.chartResize);
     }
 }
 </script>
