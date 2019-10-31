@@ -8,7 +8,7 @@
                     <router-link to="/order" tag="span" class="navMi" active-class="active">订单</router-link>
                     <router-link to="/book" tag="span" class="navMi" active-class="active">订车</router-link>
                     <router-link to="/account" tag="span" class="navMi" active-class="active" v-if="isRoot">账号管理</router-link>
-                    <!-- <router-link to="/quote" tag="span" class="navMi" :class="{dot: offerMsg}" active-class="active">报价</router-link> -->
+                    <router-link to="/quote" tag="span" class="navMi" :class="{dot: offerMsg}" active-class="active">报价</router-link>
                 </div>
                 <div class="user" v-if="isLogin">
                     <div class="uh">
@@ -61,7 +61,7 @@ export default {
             companyInfo: {},
 
             pollingTimer: null,
-            offerMsg: 1,
+            offerMsg: 0,
         }
     },
     computed: {
@@ -78,7 +78,7 @@ export default {
     mounted() {
         this.loginInfo = localStorage.getItemObj("loginInfo");
         this.companyInfo = localStorage.getItemObj("companyInfo");
-        // this.startPollingMsg();
+        this.startPollingMsg();
     },
     beforeDestroy() {
         this.endPollingMsg();

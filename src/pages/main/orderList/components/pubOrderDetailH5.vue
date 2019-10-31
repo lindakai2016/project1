@@ -12,7 +12,10 @@
                 <div class="l1">
                     <i class="iconfont icon-home_icon_numberofpeople"></i>
                     <span class="name">{{odItem.driverName || "-"}}</span>
-                    <a class="phone" :href="`tel:${odItem.driverPhone}`">{{odItem.driverPhone || "-"}} <i class="iconfont icon-icon_callup telIc"></i></a>
+                    <a class="phone" :href="`tel://${odItem.driverPhone}`">
+                        {{odItem.driverPhone || "-"}} 
+                        <i class="iconfont icon-icon_callup telIc"></i>
+                    </a>
                 </div>
                 <div class="l2">
                     <i class="iconfont icon-icon_citycar_n"></i>
@@ -39,7 +42,10 @@
                     <i class="iconfont icon-icon_contacts"></i>
                     <span class="rideNum">{{odItem.rideNum}}人</span>
                     <span class="userName">{{odItem.userName || "--"}}</span>
-                    <a class="userPhone" :href="`tel:${odItem.userPhone}`">{{odItem.userPhone || "--"}} <i class="iconfont icon-icon_callup telIc"></i></a>
+                    <a class="userPhone" :href="`tel://${odItem.userPhone}`">
+                        {{odItem.userPhone || "--"}} 
+                        <i class="iconfont icon-icon_callup telIc"></i>
+                    </a>
                 </div>
                 <div class="remark">{{odItem.remark || "--"}}</div>
             </div>
@@ -58,9 +64,14 @@
                 <div class="line">
                     <label class="lb">下单人</label>
                     <span class="val">
-                        {{odItem.creatorName || "-"}}<a :href="`tel:${odItem.creatorPhone}`"><i class="phone">{{odItem.creatorPhone || "-"}}</i></a>
+                        {{odItem.creatorName || "-"}}
+                        <a :href="`tel://${odItem.creatorPhone}`">
+                            <i class="phone">{{odItem.creatorPhone || "-"}}</i>
+                        </a>
                     </span>
-                    <i class="iconfont icon-icon_callup"></i>
+                    <a class="iconfont" :href="`tel://${odItem.creatorPhone}`">
+                        <i class="iconfont icon-icon_callup"></i>
+                    </a>
                 </div>
                 <div class="line">
                     <label class="lb">订单金额</label>

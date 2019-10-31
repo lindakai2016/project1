@@ -123,7 +123,7 @@ export default {
         position: relative;
         z-index: 100;
         .datePicker {
-            margin-right: 13px;
+            
         }
     }
     .sec3 {

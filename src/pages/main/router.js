@@ -5,7 +5,7 @@ import orderList from "./orderList";
 import accountList from "./accountList";
 import bookCar from "./bookCar";
 import orderListRV from "./orderList/routerView";
-// import quote from "./quote";
+import quote from "./quote";
 
 import pubOrderDetail from "./orderList/components/pubOrderDetail";
 import pubOrderDetailH5 from "./orderList/components/pubOrderDetailH5";
@@ -44,10 +44,10 @@ export default [
                 path: "/book",
                 component: bookCar,
             },
-            // {
-            //     path: "/quote",
-            //     component: quote,
-            // }
+            {
+                path: "/quote",
+                component: quote,
+            }
         ],
     },
     {
