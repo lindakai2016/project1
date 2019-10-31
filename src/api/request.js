@@ -72,7 +72,7 @@ function dealResponse(config, response) {
 function dealResponseErr(config, err) {
     config.loading && vue.$loading.close();
     config.mask && vue.$mask.close();
-    vue.$message.failed(err);
+    !config.silent && vue.$message.failed(err);
 }
 
 export default function(config) {

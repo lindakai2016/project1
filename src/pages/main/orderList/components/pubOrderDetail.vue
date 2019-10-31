@@ -109,7 +109,7 @@ export default {
     computed: {
         canCancel() {
             let {orderStatus, cancelApply} = this.odItem || {};
-            return [0, 10, 20].includes(orderStatus) && cancelApply;
+            return orderStatus < 7 && cancelApply;
         },
         hasOdFlow() {
             return this.odItem && this.odItem.orderFlow.length;
@@ -161,12 +161,18 @@ export default {
                     return;
                 }
                 let odItem =  res.data || {};
+
                 odItem.isCt = (odItem.type == 3);
                 odItem.createTimeStr = odItem.createTime && moment(odItem.createTime).format("YYYY-MM-DD HH:mm:ss");
                 odItem.setterTypeEx = {1: "线下结算", 2: "线上结算"}[odItem.settleType];
                 odItem.settleStatusEx = {0: "未结算", 1: "已结算"}[odItem.settleStatus];
+
+                odItem.pgDayEx = odItem.serviceDay == 0.5 ? "半" : odItem.serviceDay;
+                odItem.serviceTypeEx = odItem.isCt ? `包车${odItem.pgDayEx || "--"}天` : odItem.serviceTypeDesc;
+
                 !odItem.orderFlow && (odItem.orderFlow = []);
                 odItem.orderFlow.map((e, i) => e.idx = i);
+
                 this.odItem =odItem;
             });
         },

@@ -38,6 +38,10 @@ export default [
 
     { name: "pubOrderDetail", url: "/public/order/detail", method: "get"}, 
     { name: "pubOrderCancel", url: "/public/order/cancel", method: "post"}, 
+
+    { name: "msg", url: "/common/msg", method: "get", auth: true, silent: true},     //消息轮询
+    { name: "offerDetail", url: "/offer/detail", method: "get", loading: true, auth: true},     //报价详情
+
 ]
 
 

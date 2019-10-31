@@ -22,6 +22,7 @@ Vue.config.productionTip = false;
 import "@/static/css/global.scss";
 import "@/static/css/custom.scss";
 import "@/static/css/reset.scss";
+import "@/static/css/ck-content.css";
 
 // 设置title
 let company = localStorage.getItemObj("companyInfo");

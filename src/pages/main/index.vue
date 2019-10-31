@@ -2,12 +2,13 @@
     <div class="home">
         <div class="navBarWrap">
             <div class="navbar normalW">
-                <div class="company">{{companyInfo.companyName || "--"}}</div>
+                <div class="company">{{loginInfo.customerName || "--"}}</div>
                 <div class="navMenu">
                     <router-link to="/home" tag="span" class="navMi" active-class="active">首页</router-link>
                     <router-link to="/order" tag="span" class="navMi" active-class="active">订单</router-link>
                     <router-link to="/book" tag="span" class="navMi" active-class="active">订车</router-link>
                     <router-link to="/account" tag="span" class="navMi" active-class="active" v-if="isRoot">账号管理</router-link>
+                    <!-- <router-link to="/quote" tag="span" class="navMi" :class="{dot: offerMsg}" active-class="active">报价</router-link> -->
                 </div>
                 <div class="user" v-if="isLogin">
                     <div class="uh">
@@ -58,6 +59,9 @@ export default {
 
             loginInfo: {},
             companyInfo: {},
+
+            pollingTimer: null,
+            offerMsg: 1,
         }
     },
     computed: {
@@ -74,6 +78,10 @@ export default {
     mounted() {
         this.loginInfo = localStorage.getItemObj("loginInfo");
         this.companyInfo = localStorage.getItemObj("companyInfo");
+        // this.startPollingMsg();
+    },
+    beforeDestroy() {
+        this.endPollingMsg();
     },
     methods: {
         openMfDlg() {
@@ -93,6 +101,25 @@ export default {
                 this.$router.push("/login");
             }).catch(err => err);
         }, 300),
+        // 消息轮询
+        startPollingMsg() {
+            clearInterval(this.pollingTimer);
+            this.pollingTimer = setInterval(() => {
+                this.getMsg();
+            }, 3000);
+        },
+        endPollingMsg() {
+            clearInterval(this.pollingTimer);
+            this.pollingTimer = null;
+        },
+        getMsg() {
+            this.$api["msg"]({}).then(res => {
+                if(res.code != 100200) {
+                    return;
+                }
+                this.offerMsg = res.data && res.data.offerMsg;
+            }).catch(err => err);
+        }
     }
 }
 </script>
@@ -142,21 +169,37 @@ export default {
                     &.active {
                         border-bottom-color: #4780F7;
                         color: #000;
+                        &::after {
+                            display: none;
+                        }
                     }
                     &:hover {
                         color: #000;
                     }
+                    &.dot{
+                        position: relative;
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            right: 8px;
+                            top: 15px;
+                            width: 6px;
+                            height: 6px;
+                            background: #F85C5C;
+                            border-radius: 100%;
+                        }
+                    }
                 }
             }
             .loginLink {
-                margin-left: 150px;
+                margin-left: 100px;
                 text-align: center;
                 cursor: pointer;
                 color: #4780F7;
                 font-size: 16px;
             }
             .user {
-                margin-left: 150px;
+                margin-left: 100px;
                 position: relative;
                 width: 100px;
                 line-height: 58px;

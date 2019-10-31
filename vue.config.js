@@ -3,7 +3,7 @@ const publicPath = {
     development: '/'
 };
 
-const CompressionPlugin = require("compression-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     lintOnSave: true,
@@ -17,19 +17,19 @@ module.exports = {
         }
     },
     productionSourceMap: false,
-    configureWebpack: () => {
-        if(process.env.NODE_ENV == "production") {
-            return {
-                plugins: [
-                    new CompressionPlugin({
-                        algorithm: "gzip",
-                        test: /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i,
-                        threshold: 10240,
-                    })
-                ],
-            }
-        }
-    },
+    // configureWebpack: () => {
+    //     if(process.env.NODE_ENV == "production") {
+    //         return {
+    //             plugins: [
+    //                 new CompressionPlugin({
+    //                     algorithm: "gzip",
+    //                     test: /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i,
+    //                     threshold: 10240,
+    //                 })
+    //             ],
+    //         }
+    //     }
+    // },
     chainWebpack: config => {
         config.module
             .rule('images')
