@@ -1,6 +1,6 @@
 <template>
     <div class="homePage">
-        <banner class="sec1" :data="banData"></banner>
+        <banner class="sec1"></banner>
         <part2 class="sec2"></part2>
         <div class="filter">
             <DatePicker class="datePicker" :options="datePickerOption" type="daterange" placeholder="选择时间" placement="bottom-end" :clearable="false" v-model="date"></DatePicker>
@@ -34,8 +34,6 @@ export default {
     },
     data() {
         return {
-            banData: {},
-
             date: Date.curMonth(),
             datePickerOption: {
 				shortcuts: [
