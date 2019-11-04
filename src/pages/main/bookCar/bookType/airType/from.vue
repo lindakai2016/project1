@@ -53,9 +53,13 @@
                 type="time"
                 placeholder="选择时间"
                 :editable="false"
-                :steps="[1,10]"
+                :steps="[1, 10]"
                 v-model="jcTime"
                 confirm
+                :disabled-hours="disabledHours"
+                :disabled-minutes="disabledMinutes"
+                @on-change="onTimerPickerChange"
+                hide-disabled-options
             ></TimePicker>
         </p>
         <p class="fi">
@@ -115,7 +119,13 @@ export default {
 
             jcDate: "",
             jcTime: "",
-            datePickerOption: {},
+            datePickerOption: {
+                disabledDate (date) {
+                    return date && date.valueOf() < new Date().setHours(0, 0, 0, 0);
+                }
+            },
+            disabledHours: [],
+            disabledMinutes: [],
 
             rideNum: "1",
             userPhone: "",
@@ -173,7 +183,7 @@ export default {
                     this.userName = order.userName;
                     this.remark = order.remark;
                     this.jcDate = order.serviceTime && new Date(order.serviceTime);
-                    this.jcTime = this.jcDate;
+                    this.jcTime = this.jcDate && moment(this.jcDate).format("HH:mm");
 
                     let sPos = order.startPosition;
                     let ePos = order.endPosition;
@@ -187,10 +197,10 @@ export default {
                         this.qfDate = flyItem.depPlanTime && new Date(flyItem.depPlanTime);
                         this.flyItem = flyItem;
                         this.by = 1;
-                        this.setDatePickerOption();
+                        this.addDpShortcut();
                     }else {
                         this.by = 0;
-                        this.datePickerOption = {};
+                        this.removeDpShortcut();
                     }
 
                     this.depItem = {
@@ -215,7 +225,7 @@ export default {
         },
         jcDate() {
             this.checkJcDate();
-            !this.jcTime && (this.jcTime = "08:00");
+            this.disableJcTimeOnJcDate();
         },
         jcTime() {
             this.checkJcTime();
@@ -240,7 +250,7 @@ export default {
             if(this.byFly) {
                 this.flyItem = {};
             }
-            this.datePickerOption = {};
+            this.removeDpShortcut();
         },
         flyChange(flyItem) {
             this.flyItem = flyItem;
@@ -248,61 +258,124 @@ export default {
             this.setMapCity(flyItem.arrCityName);
             //
             this.jcDate = flyItem.arrPlanTime && moment(flyItem.arrPlanTime).add(15, "m").toDate();
-            this.jcTime = this.jcDate;
-            this.setDatePickerOption();
+            this.jcTime = this.jcDate && moment(this.jcDate).format("HH:mm");
+            this.addDpShortcut();
         },
-        setDatePickerOption() {
+
+        disableJcTimeOnJcDate() {
+            let today = moment().format("YYYYMMDD");
+            let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
+            if(jcDate == today) {
+                // 当前时间往后推10分钟
+                let t = moment().add(5, "m");
+                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+
+                let tH = Number(t.slice(0, 2));
+                let tM = Number(t.slice(3));
+                this.disabledHours = Array.range(0, tH - 1);
+
+                if(!this.jcTime || this.jcTime < t) {
+                    this.jcTime = t;
+                }
+                let h = Number(this.jcTime.slice(0, 2));
+                if(h == tH) {
+                    this.disabledMinutes = Array.range(0, tM - 1);
+                }else {
+                    this.disabledMinutes = [];
+                }
+            }else {
+                this.disabledHours = [];
+                this.disabledMinutes = [];
+                !this.jcTime && (this.jcTime = "08:00");
+            }
+        },
+        onTimerPickerChange(val) {
+            let today = moment().format("YYYYMMDD");
+            let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
+            if(jcDate == today) {
+                // 当前时间往后推10分钟
+                let t = moment().add(5, "m");
+                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+
+                let tH = Number(t.slice(0, 2));
+                let tM = Number(t.slice(3));
+                this.disabledHours = Array.range(0, tH - 1);
+
+                if(!val) {
+                    this.disabledMinutes = [];
+                    return;
+                }
+                if(val < t) {
+                    val = t;
+                    this.jcTime = t;
+                }
+                let h = Number(val.slice(0, 2));
+                if(h == tH) {
+                    this.disabledMinutes = Array.range(0, tM - 1);
+                }else {
+                    this.disabledMinutes = [];
+                }
+            }else {
+                this.disabledHours = [];
+                this.disabledMinutes = [];
+            }
+        },
+
+        // --航班时间快捷方式--
+        addDpShortcut() {
             let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";
             if(!arrPlanTime) {
-                this.datePickerOption = {};
+                this.removeDpShortcut();
                 return;
             }
             let _this = this;
-            this.datePickerOption = {
-                shortcuts: [
-					{
-						text: '航班到达后15分钟',
-						value () {
-                            let d = moment(arrPlanTime).add(15, "m").toDate();
-                            _this.jcDate = d;
-                            _this.jcTime = d;
-						}
-					},
-					{
-						text: '航班到达后30分钟',
-						value () {
-							let d = moment(arrPlanTime).add(30, "m").toDate();
-                            _this.jcDate = d;
-                            _this.jcTime = d;
-						}
-					},
-					{
-						text: '航班到达后45分钟',
-						value () {
-							let d = moment(arrPlanTime).add(45, "m").toDate();
-                            _this.jcDate = d;
-                            _this.jcTime = d;
-						}
-					},
-					{
-						text: '航班到达后60分钟',
-						value () {
-							let d = moment(arrPlanTime).add(60, "m").toDate();
-                            _this.jcDate = d;
-                            _this.jcTime = d;
-						}
-					},
-					{
-						text: '航班到达后120分钟',
-						value () {
-							let d = moment(arrPlanTime).add(120, "m").toDate();
-                            _this.jcDate = d;
-                            _this.jcTime = d;
-						}
-					},
-				]
-            }
+            this.datePickerOption.shortcuts = [
+                {
+                    text: '航班到达后15分钟',
+                    value () {
+                        let d = moment(arrPlanTime).add(15, "m");
+                        _this.jcDate = d.toDate();
+                        _this.jcTime = d.format("HH:mm");
+                    }
+                },
+                {
+                    text: '航班到达后30分钟',
+                    value () {
+                        let d = moment(arrPlanTime).add(30, "m");
+                        _this.jcDate = d.toDate();
+                        _this.jcTime = d.format("HH:mm");
+                    }
+                },
+                {
+                    text: '航班到达后45分钟',
+                    value () {
+                        let d = moment(arrPlanTime).add(45, "m");
+                        _this.jcDate = d.toDate();
+                        _this.jcTime = d.format("HH:mm");
+                    }
+                },
+                {
+                    text: '航班到达后60分钟',
+                    value () {
+                        let d = moment(arrPlanTime).add(60, "m");
+                        _this.jcDate = d.toDate();
+                        _this.jcTime = d.format("HH:mm");
+                    }
+                },
+                {
+                    text: '航班到达后120分钟',
+                    value () {
+                        let d = moment(arrPlanTime).add(120, "m");
+                        _this.jcDate = d.toDate();
+                        _this.jcTime = d.format("HH:mm");
+                    }
+                },
+            ];
         },
+        removeDpShortcut() {
+            this.datePickerOption.shortcuts = [];
+        },
+
         flyLnglat() {
             this.updateMap();
         },

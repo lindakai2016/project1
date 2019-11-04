@@ -17,6 +17,7 @@
             <DatePicker 
                 class="rval v_useDate ivu-datepick-h35" 
                 :class="{err: jcDateErr}"
+                :options="datePickerOption"
                 type="date"
                 placeholder="选择日期"
                 :editable="false"
@@ -32,6 +33,10 @@
                 :steps="[1,10]"
                 v-model="jcTime"
                 confirm
+                :disabled-hours="disabledHours"
+                :disabled-minutes="disabledMinutes"
+                @on-change="onTimerPickerChange"
+                hide-disabled-options
             ></TimePicker>
         </p>
         <p class="fi">
@@ -78,6 +83,13 @@ export default {
         return {
             jcDate: "",
             jcTime: "",
+            datePickerOption: {
+                disabledDate (date) {
+                    return date && date.valueOf() < new Date().setHours(0, 0, 0, 0);
+                }
+            },
+            disabledHours: [],
+            disabledMinutes: [],
 
             poiItem: {},
             poiItem2: {}, 
@@ -120,7 +132,7 @@ export default {
                     this.userName = order.userName;
                     this.remark = order.remark;
                     this.jcDate = order.serviceTime && new Date(order.serviceTime);
-                    this.jcTime = this.jcDate;
+                    this.jcTime = this.jcDate && moment(this.jcDate).format("HH:mm");
 
                     let sPos = order.startPosition;
                     let ePos = order.endPosition;
@@ -150,7 +162,7 @@ export default {
         },
         jcDate() {
             this.checkJcDate();
-            !this.jcTime && (this.jcTime = "08:00");
+            this.disableJcTimeOnJcDate();
         },
         jcTime() {
             this.checkJcTime();
@@ -167,6 +179,65 @@ export default {
         
     },
     methods: {
+        disableJcTimeOnJcDate() {
+            let today = moment().format("YYYYMMDD");
+            let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
+            if(jcDate == today) {
+                // 当前时间往后推10分钟
+                let t = moment().add(5, "m");
+                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+
+                let tH = Number(t.slice(0, 2));
+                let tM = Number(t.slice(3));
+                this.disabledHours = Array.range(0, tH - 1);
+
+                if(!this.jcTime || this.jcTime < t) {
+                    this.jcTime = t;
+                }
+                let h = Number(this.jcTime.slice(0, 2));
+                if(h == tH) {
+                    this.disabledMinutes = Array.range(0, tM - 1);
+                }else {
+                    this.disabledMinutes = [];
+                }
+            }else {
+                this.disabledHours = [];
+                this.disabledMinutes = [];
+                !this.jcTime && (this.jcTime = "08:00");
+            }
+        },
+        onTimerPickerChange(val) {
+            let today = moment().format("YYYYMMDD");
+            let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
+            if(jcDate == today) {
+                // 当前时间往后推10分钟
+                let t = moment().add(5, "m");
+                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+
+                let tH = Number(t.slice(0, 2));
+                let tM = Number(t.slice(3));
+                this.disabledHours = Array.range(0, tH - 1);
+
+                if(!val) {
+                    this.disabledMinutes = [];
+                    return;
+                }
+                if(val < t) {
+                    val = t;
+                    this.jcTime = t;
+                }
+                let h = Number(val.slice(0, 2));
+                if(h == tH) {
+                    this.disabledMinutes = Array.range(0, tM - 1);
+                }else {
+                    this.disabledMinutes = [];
+                }
+            }else {
+                this.disabledHours = [];
+                this.disabledMinutes = [];
+            }
+        },
+        
         poiChange(poiItem) {
             this.poiItem = poiItem;
             this.updateMap();
