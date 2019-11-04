@@ -93,7 +93,7 @@ export default {
         return {
             jcDate: "",
             jcTime: "",
-             datePickerOption: {
+            datePickerOption: {
                 disabledDate (date) {
                     return date && date.valueOf() < new Date().setHours(0, 0, 0, 0);
                 }
@@ -183,7 +183,7 @@ export default {
         
     },
     methods: {
-         disableJcTimeOnJcDate() {
+        disableJcTimeOnJcDate() {
             let today = moment().format("YYYYMMDD");
             let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
             if(jcDate == today) {
@@ -241,7 +241,7 @@ export default {
                 this.disabledMinutes = [];
             }
         },
-        
+
         poiChange(item) {
             this.poiItem = item;
         },
