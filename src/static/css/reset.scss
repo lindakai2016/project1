@@ -60,6 +60,18 @@ i.ivu-icon {
     }
 }
 
+.ivu-time-picker-cells-list {
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #D8D8D8;
+        &:hover {
+            background: #ccc;
+        }
+    }
+}
+
 // 35px高度定制
 .ivu-datepick-h35 {
     .ivu-input {

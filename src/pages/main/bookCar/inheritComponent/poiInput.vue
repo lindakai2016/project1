@@ -337,6 +337,9 @@ export default {
             }
             &::-webkit-scrollbar-thumb {
                 background: #D8D8D8;
+                &:hover {
+                    background: #ccc;
+                }
             }
             .li {
                 margin: 5px 0;

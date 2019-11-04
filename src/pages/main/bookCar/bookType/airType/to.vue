@@ -30,7 +30,7 @@
                 type="time"
                 placeholder="选择日期"
                 :editable="false"
-                :steps="[1,10]"
+                :steps="[1, 5]"
                 v-model="jcTime"
                 confirm
                 :disabled-hours="disabledHours"
@@ -188,7 +188,7 @@ export default {
             if(jcDate == today) {
                 // 当前时间往后推10分钟
                 let t = moment().add(5, "m");
-                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+                t = t.add(5 - t.minutes() % 5, "m").format("HH:mm");
 
                 let tH = Number(t.slice(0, 2));
                 let tM = Number(t.slice(3));
@@ -215,7 +215,7 @@ export default {
             if(jcDate == today) {
                 // 当前时间往后推10分钟
                 let t = moment().add(5, "m");
-                t = t.add(10 - t.minutes() % 10, "m").format("HH:mm");
+                t = t.add(5 - t.minutes() % 5, "m").format("HH:mm");
 
                 let tH = Number(t.slice(0, 2));
                 let tM = Number(t.slice(3));
