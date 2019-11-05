@@ -1,6 +1,10 @@
 <template>
     <div class="inputSrch">
-        <input class="input" type="text" :placeholder="placeholder" :value="value" @input="input($event)">
+        <input class="input" type="text" :placeholder="placeholder" :value="value" 
+            @input="input($event)" 
+            @compositionstart="compositionStart" 
+            @compositionend="compositionEnd($event)"
+        >
         <i class="iconfont icon-login_icon_del link delIc" @click="clear" v-show="showClear"></i>
         <i class="iconfont icon-icon_search link srchIc" @click="clickSearch"></i>
     </div>
@@ -15,6 +19,11 @@ export default {
         prop: "value",
         event: "inputValue",
     },
+    data() {
+        return {
+            isInputZhName: false,
+        }
+    },
     computed: {
         showClear() {
             return !!this.value;
@@ -24,7 +33,17 @@ export default {
         clickSearch() {
             this.$emit("search");
         },
+        compositionStart() {
+            this.isInputZhName = true;
+        },
+        compositionEnd(event) {
+            this.isInputZhName = false;
+            this.$emit("inputValue", event.target.value);
+        },
         input(event) {
+            if(this.isInputZhName) {
+                return;
+            }
             this.$emit("inputValue", event.target.value);
         },
         clear() {

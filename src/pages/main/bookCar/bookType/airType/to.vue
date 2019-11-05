@@ -37,6 +37,7 @@
                 :disabled-minutes="disabledMinutes"
                 @on-change="onTimerPickerChange"
                 hide-disabled-options
+                @on-open-change="scrollTimeToView"
             ></TimePicker>
         </p>
         <p class="fi">
@@ -239,6 +240,20 @@ export default {
                 this.disabledHours = [];
                 this.disabledMinutes = [];
             }
+        },
+        scrollTimeToView(bol) {
+            if(!bol){
+                return;
+            }
+            // 设置宏任务
+            setTimeout(() =>{
+                let celDoms = document.querySelectorAll(".ivu-time-picker-cells-cell-selected");
+                celDoms.forEach(el => {
+                    let ulDom = el.parentNode;
+                    let listDom = ulDom.parentNode;
+                    listDom.scrollTop = el.getBoundingClientRect().top - ulDom.getBoundingClientRect().top;
+                });
+            }, 0);
         },
 
         poiChange(poiItem) {

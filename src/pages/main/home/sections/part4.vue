@@ -46,11 +46,11 @@ let options = {
             show: true,
             lineStyle: {
                 width: 1,
-                color: "#4780F7",
+                color: "#dcdcdc",
             }
         },
         axisLabel: {
-            color: "#888",
+            color: "#999",
             margin: 20,
         },
         axisTick: {

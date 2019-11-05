@@ -1,7 +1,15 @@
 <template>
     <!--航班号输入框-->
     <div class="inputGr" :class="{focus: inFocus, err: err}" v-clickout="clickout">
-        <input class="input" type="text" placeholder="搜索航班号" v-model="flyKey" @input="input" @click="focus" ref="input" v-show="showInput" @dragstart.prevent>
+        <input class="input" type="text" placeholder="搜索航班号" v-model="flyKey" 
+            ref="input" 
+            v-show="showInput" 
+            @input="input" 
+            @click="focus" 
+            @dragstart.prevent
+            @compositionstart="compositionStart" 
+            @compositionend="compositionEnd"
+        >
         <div class="aipInfo" v-show="showApInfo" @click="clickAipInfo">
             <div class="big">{{flyItem.arrName || "--"}} {{flyItem.arrTerm && `${flyItem.arrTerm}航站楼`}}</div>
             <div class="small">{{flyItem.depCityName || "--"}}-{{flyItem.arrCityName || "--"}} {{flyItem.flightNo || "--"}} {{flyDateEx || "--"}}</div>
@@ -41,6 +49,8 @@ export default {
             flyKey: "",
             flyList: null,
             flyItem: {},
+
+            isInputZhName: false,
         }
     },
     computed: {
@@ -87,6 +97,14 @@ export default {
         this.flyItem = null;
     },
     methods: {
+        compositionStart() {
+            this.isInputZhName = true;
+        },
+        compositionEnd() {
+            this.isInputZhName = false;
+            this.input();
+        },
+
         initFlyItem(item) {
             this.flyItem = item;
             this.flyKey = item.flightNo;
@@ -236,7 +254,7 @@ export default {
         max-height: 331px;
         overflow: hidden auto;
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 8px;
         }
         &::-webkit-scrollbar-thumb {
             background: #D8D8D8;

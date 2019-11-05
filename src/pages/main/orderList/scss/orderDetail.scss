@@ -25,13 +25,13 @@
         max-height: calc(100vh - 30px - 60px - 20px - 80px);
         overflow: auto;
         &::-webkit-scrollbar {
-            width: 10px;
-            background: #d8d8d8;
+            width: 12px;
+            background: #f2f2f2;
         }
         &::-webkit-scrollbar-thumb {
-            background: #666;
+            background: #999;
             &:hover {
-                background: #444;
+                background: #666;
             }
         }
         .statusPrg {

@@ -1,17 +1,24 @@
 <template>
     <div class="quote">
         <div class="quoteContent" v-if="quoteItem">
-            <div class="hUl">
-                <div class="iL">
-                    <label class="lb">更新人：</label>
-                    <span class="val">{{quoteItem.updateBy || "蒋承君"}}</span>
+            <div class="noEmpty" v-if="quoteItem.offerId">
+                <div class="hUl">
+                    <div class="iL">
+                        <label class="lb">更新人：</label>
+                        <span class="val">{{quoteItem.updateBy || "蒋承君"}}</span>
+                    </div>
+                    <div class="iL">
+                        <label class="lb">更新时间：</label>
+                        <span class="val">{{quoteItem.updateTime || "--"}}</span>
+                    </div>
                 </div>
-                <div class="iL">
-                    <label class="lb">更新时间：</label>
-                    <span class="val">{{quoteItem.updateTime || "--"}}</span>
-                </div>
+                <div class="ck-content" v-html="quoteItem.content"></div>
             </div>
-            <div class="ck-content" v-html="quoteItem.content"></div>
+            <!--空数据-->
+            <div class="emptyQt" v-if="!quoteItem.offerId">
+                <img src="@/static/images/home_img_empty.svg">
+                <p class="emTxt">暂无报价</p>
+            </div>
         </div>
     </div>
 </template>
@@ -30,6 +37,10 @@ export default {
     methods: {
         getQuote() {
             this.$api["offerDetail"]({}).then(res => {
+                if(res.code == 100400) {
+                    this.quoteItem = {};
+                    return;
+                }
                 if(res.code != 100200) {
                     this.$message.warning(res.message || "请求失败");
                     return;
@@ -49,16 +60,29 @@ export default {
         border-radius: 4px;
         padding: 25px;
         margin-top: 25px;
-        .hUl {
-            display: flex;
-            justify-content: center;
-            .iL {
-                margin: 0 10px;
-                font-size: 12px;
-                color: rgba(44, 54, 66, 0.5);
-                .lb {
+        .noEmpty {
+            .hUl {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                .iL {
+                    margin: 0 10px;
+                    font-size: 12px;
                     color: rgba(44, 54, 66, 0.5);
+                    .lb {
+                        color: rgba(44, 54, 66, 0.5);
+                    }
                 }
+            }
+        }
+        .emptyQt {
+            text-align: center;
+            padding: 100px 0;
+            background: #fff;
+            margin-top: 20px;
+            .emTxt {
+                color: #888;
+                font-size: 14px;
             }
         }
     }

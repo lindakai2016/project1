@@ -129,7 +129,7 @@ export default {
             max-height: 260px;
             overflow: hidden auto;
             &::-webkit-scrollbar {
-                width: 5px;
+                width: 8px;
             }
             &::-webkit-scrollbar-thumb {
                 background: #D8D8D8;

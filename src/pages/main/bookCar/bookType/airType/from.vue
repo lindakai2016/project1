@@ -60,6 +60,7 @@
                 :disabled-minutes="disabledMinutes"
                 @on-change="onTimerPickerChange"
                 hide-disabled-options
+                @on-open-change="scrollTimeToView"
             ></TimePicker>
         </p>
         <p class="fi">
@@ -257,11 +258,14 @@ export default {
             this.cityId = flyItem.arrCityId;
             this.setMapCity(flyItem.arrCityName);
             //
-            this.jcDate = flyItem.arrPlanTime && moment(flyItem.arrPlanTime).add(15, "m").toDate();
-            this.jcTime = this.jcDate && moment(this.jcDate).format("HH:mm");
+            let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";
+            if(!arrPlanTime || moment(arrPlanTime).diff() < 0) {
+                arrPlanTime = moment();
+            }
+            this.jcDate = moment(arrPlanTime).add(15, "m").toDate();
+            this.jcTime = moment(this.jcDate).format("HH:mm");
             this.addDpShortcut();
         },
-
         disableJcTimeOnJcDate() {
             let today = moment().format("YYYYMMDD");
             let jcDate = this.jcDate && moment(this.jcDate).format("YYYYMMDD") || "";
@@ -320,11 +324,29 @@ export default {
                 this.disabledMinutes = [];
             }
         },
+        scrollTimeToView(bol) {
+            if(!bol){
+                return;
+            }
+            // 设置宏任务
+            setTimeout(() =>{
+                let celDoms = document.querySelectorAll(".ivu-time-picker-cells-cell-selected");
+                celDoms.forEach(el => {
+                    let ulDom = el.parentNode;
+                    let listDom = ulDom.parentNode;
+                    listDom.scrollTop = el.getBoundingClientRect().top - ulDom.getBoundingClientRect().top;
+                });
+            }, 0);
+        },
 
         // --航班时间快捷方式--
         addDpShortcut() {
             let arrPlanTime = this.flyItem && this.flyItem.arrPlanTime || "";
             if(!arrPlanTime) {
+                this.removeDpShortcut();
+                return;
+            }
+            if(moment(arrPlanTime).diff() < 0) {
                 this.removeDpShortcut();
                 return;
             }

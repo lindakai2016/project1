@@ -78,6 +78,7 @@ export default {
     mounted() {
         this.loginInfo = localStorage.getItemObj("loginInfo");
         this.companyInfo = localStorage.getItemObj("companyInfo");
+        this.getMsg();
         this.startPollingMsg();
     },
     beforeDestroy() {
@@ -106,7 +107,7 @@ export default {
             clearInterval(this.pollingTimer);
             this.pollingTimer = setInterval(() => {
                 this.getMsg();
-            }, 3000);
+            }, 1000 * 60);
         },
         endPollingMsg() {
             clearInterval(this.pollingTimer);

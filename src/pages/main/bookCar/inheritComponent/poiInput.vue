@@ -14,7 +14,11 @@
         <!--搜索poi地址-->
         <div class="poiSel selGr" v-clickout="clickoutPoi">
             <div class="poiInput inputGr" :class="{focus: inFocus2, disabled: !canInputPoi, err: err}">
-                <input class="input" @click="poiFocus" v-model="poiKey" placeholder="搜索地点" @input="poiInput">
+                <input class="input" @click="poiFocus" v-model="poiKey" placeholder="搜索地点" 
+                    @input="poiInput"
+                    @compositionstart="compositionStart" 
+                    @compositionend="compositionEnd"
+                >
                 <i class="iconfont icon-home_icon_s link sdi" @click="clickDropIcon2"></i>
             </div>
             <div class="poiList drop" v-if="showDrop2">
@@ -60,6 +64,8 @@ export default {
             poiKey: "",
             poiList: null,
             poiItem: {},
+
+            isInputZhName: false,
         }
     },
     computed: {
@@ -141,6 +147,14 @@ export default {
         this.poiList = null;
     },
     methods: {
+        compositionStart() {
+            this.isInputZhName = true;
+        },
+        compositionEnd() {
+            this.isInputZhName = false;
+            this.poiInput();
+        },
+
         initCity() {
             if(!this.cityList) {
                 return;
@@ -188,6 +202,9 @@ export default {
             this.poiKey && this.poiInput();
         }, 
         poiInput: _.debounce(function() {
+            if(this.isInputZhName) {
+                return;
+            }
             this.inFocus2 = true;
             if(!this.poiKey) {
                 this.poiList = null;
@@ -333,7 +350,7 @@ export default {
             max-height: 360px;
             overflow: hidden auto;
             &::-webkit-scrollbar {
-                width: 5px;
+                width: 8px;
             }
             &::-webkit-scrollbar-thumb {
                 background: #D8D8D8;

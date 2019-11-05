@@ -1,6 +1,12 @@
 <template>
     <div class="inputGr" :class="{focus: inFocus}">
-        <input class="input" :type="type" :placeholder="placeholder" :value="value" @input="input($event)" @focus="focus" @blur="blur">
+        <input class="input" :type="type" :placeholder="placeholder" :value="value" 
+            @input="input($event)" 
+            @focus="focus" 
+            @blur="blur"
+            @compositionstart="compositionStart" 
+            @compositionend="compositionEnd($event)"
+        >
         <i class="iconfont icon-login_icon_del link" @click="clickClear" v-show="showClear"></i>
     </div>
 </template>
@@ -17,6 +23,7 @@ export default {
     data() {
         return {
             inFocus: 0,
+            isInputZhName: false,
         }
     },
     computed: {
@@ -25,6 +32,13 @@ export default {
         }
     },
     methods: {
+        compositionStart() {
+            this.isInputZhName = true;
+        },
+        compositionEnd(event) {
+            this.isInputZhName = false;
+            this.$emit("inputValue", event.target.value);
+        },
         blur() {
             this.inFocus = false;
             this.$emit("blur");
@@ -33,6 +47,9 @@ export default {
             this.$emit("inputValue", "");
         },
         input(event) {
+            if(this.isInputZhName) {
+                return;
+            }
             this.$emit("inputValue", event.target.value);
         },
         focus() {
